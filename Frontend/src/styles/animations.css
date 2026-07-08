@@ -1,0 +1,19 @@
+html {
+    scroll-behavior: smooth;
+}
+
+.fade-in {
+    animation: fade .6s ease;
+}
+
+@keyframes fade {
+
+    from {
+        opacity:0;
+    }
+
+    to {
+        opacity:1;
+    }
+
+}

@@ -1,7 +1,7 @@
 from django.db import models
 
 from apps.common.models import TimeStampedModel
-
+from django.core.exceptions import ValidationError
 
 class About(TimeStampedModel):
     full_name = models.CharField(max_length=100)
@@ -19,10 +19,12 @@ class About(TimeStampedModel):
         upload_to="portfolio/about/"
     )
 
-    def save(self, *args, **kwargs):
+    def clean(self):
         if not self.pk and About.objects.exists():
-            raise ValueError("Only one About record is allowed.")
-   
+            raise ValidationError("Only one About record is allowed.")
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
         super().save(*args, **kwargs)
    
    

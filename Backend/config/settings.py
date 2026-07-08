@@ -35,6 +35,7 @@ ALLOWED_HOSTS = os.getenv(
     "127.0.0.1,localhost"
 ).split(",")
 
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -52,6 +53,7 @@ INSTALLED_APPS = [
      # Third Party Apps
     "rest_framework",
     "django_filters",
+    "corsheaders",
 
     # Local Apps
     "apps.portfolio",
@@ -60,6 +62,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -68,6 +71,17 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ALLOWED_ORIGINS = os.getenv(
+    "CORS_ALLOWED_ORIGINS", 
+    "http://localhost:5173"
+).split(",")
+
+ALLOWED_HOSTS = os.getenv(
+    "ALLOWED_HOSTS",
+    "127.0.0.1,localhost"
+).split(",")
+
 
 REST_FRAMEWORK = {
 

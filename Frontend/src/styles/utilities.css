@@ -1,0 +1,11 @@
+.container-custom {
+
+    @apply mx-auto max-w-7xl px-6;
+
+}
+
+.section-padding {
+
+    @apply py-24;
+
+}
