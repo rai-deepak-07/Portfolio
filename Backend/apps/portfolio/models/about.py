@@ -19,10 +19,18 @@ class About(TimeStampedModel):
         upload_to="portfolio/about/"
     )
 
+    def save(self, *args, **kwargs):
+        if not self.pk and About.objects.exists():
+            raise ValueError("Only one About record is allowed.")
+   
+        super().save(*args, **kwargs)
+   
+   
     class Meta:
         verbose_name = "About"
         verbose_name_plural = "About"
         ordering = ["full_name"]
+        
 
     def __str__(self):
         return self.full_name

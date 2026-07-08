@@ -4,6 +4,7 @@ from django.db import models
 
 from apps.common.models import TimeStampedModel
 from .technology import Technology
+from django.utils.text import slugify
 
 
 class Project(TimeStampedModel):
@@ -45,9 +46,28 @@ class Project(TimeStampedModel):
         unique=True
     )
 
+    def save(self, *args, **kwargs):
+        """
+        Auto-generate a unique slug from the title.
+        """
+        if not self.slug:
+            base_slug = slugify(self.title)
+            slug = base_slug
+            counter = 1
+
+            while Project.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+                slug = f"{base_slug}-{counter}"
+                counter += 1
+
+            self.slug = slug
+
+        super().save(*args, **kwargs)
+   
+   
     class Meta:
         ordering = ["title"]
-
+    
+    
     def __str__(self):
         return self.title
     

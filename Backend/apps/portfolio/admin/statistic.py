@@ -1,22 +1,27 @@
 from django.contrib import admin
 from unfold.admin import ModelAdmin
 
-from apps.portfolio.models import Service
+from apps.portfolio.models import Statistic
 
 
-@admin.register(Service)
-class ServiceAdmin(ModelAdmin):
+@admin.register(Statistic)
+class StatisticAdmin(ModelAdmin):
 
     list_display = (
         "title",
+        "value",
         "icon",
         "display_order",
-        "created_at",
+        "is_active",
     )
 
     search_fields = (
         "title",
-        "description",
+        "subtitle",
+    )
+
+    list_filter = (
+        "is_active",
     )
 
     ordering = (
@@ -30,24 +35,34 @@ class ServiceAdmin(ModelAdmin):
 
     fieldsets = (
         (
-            "Service Information",
+            "Statistic",
             {
                 "fields": (
                     "title",
+                    "value",
+                    "subtitle",
                     "icon",
-                    "description",
-                    "display_order",
+                    "color",
                 )
             },
         ),
         (
-            "System Information",
+            "Settings",
+            {
+                "fields": (
+                    "display_order",
+                    "is_active",
+                )
+            },
+        ),
+        (
+            "System",
             {
                 "classes": ("collapse",),
                 "fields": (
                     "created_at",
                     "updated_at",
-                ),
+                )
             },
         ),
     )

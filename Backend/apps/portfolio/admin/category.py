@@ -1,26 +1,23 @@
 from django.contrib import admin
 from unfold.admin import ModelAdmin
 
-from apps.portfolio.models import Service
+from apps.portfolio.models import Category
 
 
-@admin.register(Service)
-class ServiceAdmin(ModelAdmin):
+@admin.register(Category)
+class CategoryAdmin(ModelAdmin):
 
     list_display = (
-        "title",
-        "icon",
-        "display_order",
+        "name",
         "created_at",
     )
 
     search_fields = (
-        "title",
-        "description",
+        "name",
     )
 
     ordering = (
-        "display_order",
+        "name",
     )
 
     readonly_fields = (
@@ -30,14 +27,11 @@ class ServiceAdmin(ModelAdmin):
 
     fieldsets = (
         (
-            "Service Information",
+            "Category Information",
             {
                 "fields": (
-                    "title",
-                    "icon",
-                    "description",
-                    "display_order",
-                )
+                    "name",
+                ),
             },
         ),
         (

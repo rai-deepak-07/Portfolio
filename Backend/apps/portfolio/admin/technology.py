@@ -1,26 +1,30 @@
 from django.contrib import admin
 from unfold.admin import ModelAdmin
 
-from apps.portfolio.models import Service
+from apps.portfolio.models import Technology
 
 
-@admin.register(Service)
-class ServiceAdmin(ModelAdmin):
+@admin.register(Technology)
+class TechnologyAdmin(ModelAdmin):
 
     list_display = (
-        "title",
-        "icon",
-        "display_order",
+        "name",
+        "category",
         "created_at",
     )
 
     search_fields = (
-        "title",
-        "description",
+        "name",
+        "category__name",
+    )
+
+    list_filter = (
+        "category",
     )
 
     ordering = (
-        "display_order",
+        "category",
+        "name",
     )
 
     readonly_fields = (
@@ -30,13 +34,11 @@ class ServiceAdmin(ModelAdmin):
 
     fieldsets = (
         (
-            "Service Information",
+            "Technology Information",
             {
                 "fields": (
-                    "title",
-                    "icon",
-                    "description",
-                    "display_order",
+                    "category",
+                    "name",
                 )
             },
         ),
