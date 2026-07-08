@@ -38,6 +38,10 @@ ALLOWED_HOSTS = os.getenv(
 # Application definition
 
 INSTALLED_APPS = [
+    
+    # Django Unfold
+    "unfold",
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -155,3 +159,50 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
+
+
+
+
+from django.templatetags.static import static
+
+UNFOLD = {
+
+    "SITE_TITLE": "Deepak Portfolio",
+
+    "SITE_HEADER": "Portfolio Admin",
+
+    "SITE_SUBHEADER": "Management Dashboard",
+
+    "SITE_SYMBOL": "dashboard",
+
+    "SHOW_HISTORY": True,
+
+    "SHOW_VIEW_ON_SITE": True,
+
+    "SITE_DROPDOWN": [
+
+        {
+            "icon": "person",
+            "title": "Deepak Raikwar",
+            "link": "/",
+        }
+
+    ],
+
+    "COLORS": {
+
+        "primary": {
+            "50": "250 245 255",
+            "100": "243 232 255",
+            "200": "233 213 255",
+            "300": "216 180 254",
+            "400": "192 132 252",
+            "500": "168 85 247",
+            "600": "147 51 234",
+            "700": "126 34 206",
+            "800": "107 33 168",
+            "900": "88 28 135",
+        }
+
+    },
+}
