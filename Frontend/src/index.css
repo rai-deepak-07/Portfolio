@@ -1,7 +1,160 @@
 @import "tailwindcss";
 
-@import "./styles/colors.css";
-@import "./styles/typography.css";
-@import "./styles/animations.css";
-@import "./styles/utilities.css";
 @import "./styles/globals.css";
+@import "./styles/components.css";
+
+
+/* =========================================
+   Smooth Scrolling
+========================================= */
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  overflow-x: hidden;
+  background: var(--background);
+  color: white;
+}
+
+/* =========================================
+   Prevent Navbar Overlap
+========================================= */
+
+section[id] {
+  scroll-margin-top: 110px;
+}
+
+/* =========================================
+   Drawer Open
+========================================= */
+
+body.menu-open,
+html.menu-open {
+  overflow: hidden;
+  touch-action: none;
+}
+
+/* =========================================
+   Better Image Behaviour
+========================================= */
+
+img,
+svg,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+/* =========================================
+   Better Tap Highlight
+========================================= */
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* =========================================
+   Better Scrollbar
+========================================= */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,.15);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255,255,255,.3);
+}
+
+/* Firefox */
+
+* {
+  scrollbar-width: thin;
+}
+
+/* =========================================
+   Safe Area
+========================================= */
+
+.safe-top {
+  padding-top: env(safe-area-inset-top);
+}
+
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* =========================================
+   Selection
+========================================= */
+
+::selection {
+  background: rgba(99,102,241,.35);
+  color: white;
+}
+
+/* =========================================
+   Better Focus
+========================================= */
+
+button,
+a {
+  outline: none;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 4px;
+}
+
+/* =========================================
+   Prevent Horizontal Scroll
+========================================= */
+
+#__next,
+#root {
+  overflow-x: hidden;
+}
+
+/* =========================================
+   Backdrop Blur Support
+========================================= */
+
+.glass {
+  background: rgba(15,15,18,.55);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+
+/* =========================================
+   Animation
+========================================= */
+
+.fade-in {
+  animation: fadeIn .35s ease;
+}
+
+@keyframes fadeIn {
+
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+
+}

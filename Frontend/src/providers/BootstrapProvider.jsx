@@ -61,11 +61,6 @@ export default function BootstrapProvider({ children }) {
           });
 
           dispatch({
-            type: PORTFOLIO_ACTIONS.SET_RESUME,
-            payload: result.data.resume,
-          });
-
-          dispatch({
             type: PORTFOLIO_ACTIONS.SET_SKILLS,
             payload: result.data.skills,
           });
@@ -73,11 +68,6 @@ export default function BootstrapProvider({ children }) {
           dispatch({
             type: PORTFOLIO_ACTIONS.SET_STATISTICS,
             payload: result.data.statistics,
-          });
-
-          dispatch({
-            type: PORTFOLIO_ACTIONS.SET_CERTIFICATES,
-            payload: result.data.certificates,
           });
 
           dispatch({

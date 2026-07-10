@@ -1,14 +1,24 @@
 import { Download } from "lucide-react";
-
 import Button from "../../ui/Button";
+import { cn } from "../../../utils/cn";
 
-export default function ResumeButton() {
+export default function ResumeButton({
+  onClick,
+  loading = false,
+  className,
+}) {
   return (
     <Button
-      className="hidden lg:flex items-center gap-2 bg-transparent border border-slate-300 text-slate-800 hover:bg-slate-100 dark:border-slate-700 dark:text-white dark:hover:bg-slate-800"
+      variant="secondary"
+      size="md"
+      loading={loading}
+      onClick={onClick}
+      leftIcon={<Download size={18} />}
+      className={cn(
+        "transition-all duration-300 hover:scale-105",
+        className
+      )}
     >
-      <Download size={18} />
-
       Resume
     </Button>
   );

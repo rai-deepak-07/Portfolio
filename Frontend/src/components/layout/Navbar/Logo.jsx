@@ -1,24 +1,78 @@
-import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { cn } from "../../../utils/cn";
 
-export default function Logo() {
+export default function Logo({ compact = false }) {
   return (
-    <Link to="/">
+    <Link
+      to="/"
+      aria-label="Deepak Raikwar Portfolio"
+      className="group flex items-center gap-3 select-none"
+    >
       <motion.div
-        whileHover={{ scale: 1.05 }}
-        className="flex items-center gap-2"
+        whileHover={{
+          rotate: 360,
+          scale: 1.08,
+        }}
+        transition={{
+          duration: 0.6,
+          ease: "easeInOut",
+        }}
+        className="
+          relative
+          flex
+          h-11
+          w-11
+          shrink-0
+          items-center
+          justify-center
+          rounded-full
+          border
+          border-white/10
+          bg-gradient-to-br
+          from-primary/20
+          to-primary/5
+          text-white
+          font-bold
+          shadow-lg
+          backdrop-blur-xl
+          overflow-hidden
+        "
       >
-        <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-600 text-lg font-bold text-white shadow-lg">
-          DR
-        </div>
+        <span className="relative z-10">DR</span>
 
-        <div className="hidden sm:block">
-          <h2 className="text-lg font-bold">Deepak Raikwar</h2>
+        <span
+          className="
+            absolute
+            inset-0
+            bg-gradient-to-br
+            from-primary/20
+            to-transparent
+            opacity-0
+            transition-opacity
+            duration-300
+            group-hover:opacity-100
+          "
+        />
+      </motion.div>
 
-          <p className="text-xs text-slate-500 dark:text-slate-400">
-            Backend Developer
-          </p>
-        </div>
+      <motion.div
+        animate={{
+          opacity: 1,
+          x: 0,
+        }}
+        className={cn(
+          "hidden flex-col leading-none sm:flex",
+          compact && "sm:hidden"
+        )}
+      >
+        <span className="text-base font-bold tracking-tight text-white">
+          Deepak Raikwar
+        </span>
+
+        <span className="mt-1 text-[10px] uppercase tracking-[0.28em] text-primary">
+          Software Engineer
+        </span>
       </motion.div>
     </Link>
   );

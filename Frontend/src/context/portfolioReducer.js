@@ -11,10 +11,8 @@ export const initialState = {
   about: null,
   services: [],
   projects: [],
-  resume: [],
   skills: [],
   statistics: [],
-  certificates: [],
 };
 
 export function portfolioReducer(state, action) {
@@ -61,12 +59,6 @@ export function portfolioReducer(state, action) {
         projects: action.payload,
       };
 
-    case PORTFOLIO_ACTIONS.SET_RESUME:
-      return {
-        ...state,
-        resume: action.payload,
-      };
-
     case PORTFOLIO_ACTIONS.SET_SKILLS:
       return {
         ...state,
@@ -77,12 +69,6 @@ export function portfolioReducer(state, action) {
       return {
         ...state,
         statistics: action.payload,
-      };
-
-    case PORTFOLIO_ACTIONS.SET_CERTIFICATES:
-      return {
-        ...state,
-        certificates: action.payload,
       };
 
     case PORTFOLIO_ACTIONS.RESET:

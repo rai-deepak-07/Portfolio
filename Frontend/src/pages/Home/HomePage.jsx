@@ -1,25 +1,25 @@
 import HeroSection from "../../features/hero/HeroSection";
-import AboutSection from "../../features/about/AboutSection";
-import ServicesSection from "../../features/services/ServicesSection";
-import StatisticsSection from "../../features/statistics/StatisticsSection";
-import SkillsSection from "../../features/skills/SkillsSection";
-import ResumeSection from "../../features/resume/ResumeSection";
-import ProjectsSection from "../../features/projects/ProjectsSection";
-import CertificatesSection from "../../features/certificates/CertificatesSection";
-import ContactSection from "../../features/contact/ContactSection";
+import TrustMetricsSection from "../../features/trustmetrics/TrustMetricsSection";
+import SolutionsSection from "../../features/solutions/SolutionsSection";
+import FeaturedWorkSection from "../../features/works/FeaturedWorkSection";
+import EngineeringProcessSection from "../../features/process/EngineeringProcessSection";
+import TrustedTechnologySection from "../../features/technologies/TrustedTechnologySection";
+import WhyChooseMeSection from "../../features/whyme/WhyChooseMeSection";
+import FAQSection from "../../features/faq/FAQSection";
+import ContactCTASection from "../../features/contact/ContactCTASection";
 
 export default function HomePage() {
   return (
     <>
       <HeroSection />
-      <AboutSection />
-      <ServicesSection />
-      <StatisticsSection />
-      <SkillsSection />
-      <ResumeSection />
-      <ProjectsSection />
-      <CertificatesSection />
-      <ContactSection />
+      <TrustMetricsSection/>
+      <SolutionsSection />
+      <FeaturedWorkSection />
+      <EngineeringProcessSection/>
+      <TrustedTechnologySection/>
+      <WhyChooseMeSection/>
+      <FAQSection/>
+      <ContactCTASection />
     </>
   );
 }

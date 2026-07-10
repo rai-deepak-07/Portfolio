@@ -1,7 +1,162 @@
+@import "tailwindcss";
+
+/* ==========================================
+   Fonts
+========================================== */
+
+/* Local Font Example
+
+@font-face {
+  font-family: "Inter";
+  src: url("../assets/fonts/Inter-Variable.ttf") format("truetype");
+  font-weight: 100 900;
+}
+
+*/
+
+:root {
+  /* Brand */
+
+  --primary: #5b8cff;
+  --primary-light: #7aa4ff;
+  --secondary: #7c3aed;
+  --accent: #22d3ee;
+
+  /* Background */
+
+  --background: #06070a;
+  --surface: #0d1117;
+  --card: #111827;
+
+  /* Text */
+
+  --text: #f8fafc;
+  --text-muted: #94a3b8;
+
+  /* Border */
+
+  --border: rgba(255, 255, 255, .08);
+
+  /* Radius */
+
+  --radius: 18px;
+
+  /* Shadow */
+
+  --shadow:
+      0 20px 60px rgba(0,0,0,.35);
+
+  color-scheme: dark;
+}
+
+/* ==========================================
+   Base
+========================================== */
+
+html {
+  scroll-behavior: smooth;
+}
+
+section[id] {
+  scroll-margin-top: 110px;
+}
+
 body {
-    background: var(--background);
-    color: var(--text-primary);
-    transition: background .3s,color .3s;
-    overflow-x:hidden;
+
+  min-height: 100vh;
+
+  background: var(--background);
+
+  color: var(--text);
+
+  font-family: "Inter", sans-serif;
+
+  overflow-x: hidden;
+
+  text-rendering: optimizeLegibility;
+
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================
+   Background
+========================================== */
+
+body::before {
+
+  content: "";
+
+  position: fixed;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  background:
+      radial-gradient(circle at top,
+          rgba(91,140,255,.14),
+          transparent 45%),
+
+      radial-gradient(circle at bottom right,
+          rgba(124,58,237,.08),
+          transparent 40%);
+
+  z-index: -2;
+}
+
+/* ==========================================
+   Selection
+========================================== */
+
+::selection{
+
+  background: var(--primary);
+
+  color: white;
+}
+
+/* ==========================================
+   Scrollbar
+========================================== */
+
+::-webkit-scrollbar{
+    width:8px;
+}
+
+::-webkit-scrollbar-track{
+    background:#090909;
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:linear-gradient(
+        var(--primary),
+        var(--secondary)
+    );
+
+    border-radius:999px;
+}
+
+/* ==========================================
+   Tailwind Theme
+========================================== */
+
+@theme {
+
+  --color-primary: var(--primary);
+
+  --color-secondary: var(--secondary);
+
+  --color-background: var(--background);
+
+  --color-surface: var(--surface);
+
+  --color-card: var(--card);
+
+  --color-text: var(--text);
+
+  --color-muted: var(--text-muted);
+
+  --radius-card: var(--radius);
 
 }

@@ -1,7 +1,6 @@
 import { HelmetProvider } from "react-helmet-async";
 import { Toaster } from "react-hot-toast";
 
-import { ThemeProvider } from "../context/ThemeContext";
 import { PortfolioProvider } from "../context/PortfolioContext";
 import BootstrapProvider from "./BootstrapProvider";
 
@@ -12,8 +11,6 @@ export default function AppProvider({ children }) {
 
         <HelmetProvider>
 
-            <ThemeProvider>
-
                 <PortfolioProvider>
 
                     <BootstrapProvider>
@@ -23,8 +20,6 @@ export default function AppProvider({ children }) {
                     </BootstrapProvider>
 
                 </PortfolioProvider>
-
-            </ThemeProvider>
 
         </HelmetProvider>
 

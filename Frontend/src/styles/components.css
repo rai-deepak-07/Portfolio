@@ -1,0 +1,297 @@
+/* ==========================================================
+   COMPONENT UTILITIES
+   Tailwind CSS v4
+   ========================================================== */
+
+@utility container-custom {
+  @apply mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-8;
+}
+
+/* ==========================================================
+   Sections
+   ========================================================== */
+
+@utility section {
+  @apply py-20 md:py-24 lg:py-32;
+}
+
+@utility section-sm {
+  @apply py-16 md:py-20;
+}
+
+/* ==========================================================
+   Glass
+   ========================================================== */
+
+@utility glass {
+  @apply border border-white/10
+         bg-white/5
+         backdrop-blur-xl;
+}
+
+@utility glass-card {
+  @apply glass
+         rounded-3xl
+         shadow-2xl;
+}
+
+/* ==========================================================
+   Buttons
+   ========================================================== */
+
+@utility btn-primary {
+
+  @apply inline-flex
+         items-center
+         justify-center
+         rounded-xl
+         px-6
+         py-3
+         font-medium
+         transition-all
+         duration-300
+         bg-primary
+         text-white
+         hover:scale-105
+         hover:shadow-xl;
+}
+
+@utility btn-secondary {
+
+  @apply inline-flex
+         items-center
+         justify-center
+         rounded-xl
+         border
+         border-white/10
+         bg-white/5
+         px-6
+         py-3
+         font-medium
+         backdrop-blur-xl
+         transition-all
+         duration-300
+         hover:bg-white/10;
+}
+
+/* ==========================================================
+   Headings
+   ========================================================== */
+
+@utility section-title {
+
+  @apply text-4xl
+         md:text-5xl
+         font-bold
+         tracking-tight;
+}
+
+@utility section-description {
+
+  @apply mt-5
+         max-w-2xl
+         text-base
+         md:text-lg
+         text-muted;
+}
+
+/* ==========================================================
+   Cards
+   ========================================================== */
+
+@utility card {
+
+  @apply rounded-3xl
+         border
+         border-white/10
+         bg-card
+         transition-all
+         duration-300;
+}
+
+@utility card-hover {
+
+  @apply hover:-translate-y-2
+         hover:border-primary/40
+         hover:shadow-2xl;
+}
+
+/* ==========================================================
+   Gradient Text
+   ========================================================== */
+
+@utility gradient-text {
+
+  @apply bg-gradient-to-r
+         from-primary
+         via-blue-400
+         to-secondary
+         bg-clip-text
+         text-transparent;
+}
+
+/* ==========================================================
+   Badges
+   ========================================================== */
+
+@utility badge {
+
+  @apply inline-flex
+         items-center
+         gap-2
+         rounded-full
+         border
+         border-primary/30
+         bg-primary/10
+         px-4
+         py-2
+         text-sm
+         font-medium
+         text-primary;
+}
+
+/* ==========================================================
+   Icon Wrapper
+   ========================================================== */
+
+@utility icon-box {
+
+  @apply flex
+         h-12
+         w-12
+         items-center
+         justify-center
+         rounded-2xl
+         bg-primary/10
+         text-primary;
+}
+
+/* ==========================================================
+   Hover Glow
+   ========================================================== */
+
+@utility glow-hover {
+
+  @apply transition-all
+         duration-300
+         hover:shadow-[0_0_40px_rgba(91,140,255,.25)];
+}
+
+/* ==========================================================
+   Navigation Link
+   ========================================================== */
+
+@utility nav-link {
+
+  @apply relative
+         text-sm
+         font-medium
+         text-muted
+         transition-colors
+         duration-300
+         hover:text-white;
+}
+
+/* ==========================================================
+   Inputs
+   ========================================================== */
+
+@utility input {
+
+  @apply w-full
+         rounded-2xl
+         border
+         border-white/10
+         bg-white/5
+         px-5
+         py-4
+         text-white
+         outline-none
+         transition-all
+         duration-300
+         placeholder:text-muted
+         focus:border-primary
+         focus:ring-2
+         focus:ring-primary/30;
+}
+
+
+
+
+/* ==========================================================
+   PREMIUM SECTION BACKGROUND
+========================================================== */
+
+.section-background {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.section-background::before {
+    content: "";
+
+    position: absolute;
+    opacity: .4;
+
+    inset: 0;
+
+    z-index: -2;
+
+    background:
+        radial-gradient(
+            circle at top left,
+            rgba(91,140,255,.4),
+            transparent 35%
+        ),
+
+        radial-gradient(
+            circle at bottom right,
+            rgba(124,58,237,.3),
+            transparent 35%
+        );
+
+    filter: blur(10px);
+}
+
+.section-background::after {
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    z-index:-1;
+
+    opacity:.06;
+
+    background-image:
+
+    linear-gradient(
+        rgba(255,255,255,.8) 1px,
+        transparent 1px
+    ),
+
+    linear-gradient(
+        90deg,
+        rgba(255,255,255,.8) 1px,
+        transparent 1px
+    );
+
+    background-size:60px 60px;
+
+    mask-image:
+        radial-gradient(
+            ellipse at center,
+            black 45%,
+            transparent 100%
+        );
+
+    -webkit-mask-image:
+        radial-gradient(
+            ellipse at center,
+            black 45%,
+            transparent 100%
+        );
+}

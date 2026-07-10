@@ -1,15 +1,119 @@
-export default function SectionTitle({title, subtitle,}) {
+import { motion } from "framer-motion";
+import { cn } from "../../utils/cn";
+import Badge from "./Badge";
+
+const alignments = {
+  left: "text-left items-start",
+  center: "text-center items-center",
+  right: "text-right items-end",
+};
+
+export default function SectionTitle({
+  title,
+  highlight,
+  description,
+  
+  align = "center",
+  className = "",
+  titleClassName = "",
+  descriptionClassName = "",
+  
+  badge,
+  badgeVariant,
+  badgeSize,
+  badgeLeftIcon,
+  badgeRightIcon,
+  badgeAnimate,
+  badgeRounded,
+  badgePulse,
+
+  children,
+}) {
   return (
-    <div className="mb-14 text-center">
+    <motion.div
+      initial={{ opacity: 0, y: 35 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{
+        once: true,
+        amount: 0.35,
+      }}
+      transition={{
+        duration: 0.6,
+      }}
+      className={cn(
+        "flex flex-col gap-5 mb-16",
 
-      <p className="text-blue-600 font-semibold uppercase tracking-widest">
-        {subtitle}
-      </p>
+        alignments[align],
 
-      <h2 className="mt-3">
+        className
+      )}
+    >
+      {badge && (
+        <Badge variant={badgeVariant} size={badgeSize} leftIcon={badgeLeftIcon} rightIcon={badgeRightIcon} animate={badgeAnimate} rounded={badgeRounded} pulse={badgePulse} >
+          {badge}
+        </Badge>
+      )}
+
+      <h2
+        className={cn(
+          `
+          text-4xl
+          md:text-5xl
+          lg:text-6xl
+
+          font-bold
+
+          tracking-tight
+
+          leading-tight
+
+          text-white
+          `,
+          titleClassName
+        )}
+      >
         {title}
+
+        {highlight && (
+          <>
+            {" "}
+            <span
+              className="
+                bg-gradient-to-r
+                from-primary
+                via-blue-400
+                to-secondary
+                bg-clip-text
+                text-transparent
+              "
+            >
+              {highlight}
+            </span>
+          </>
+        )}
       </h2>
 
-    </div>
+      {description && (
+        <p
+          className={cn(
+            `
+            max-w-3xl
+
+            text-base
+            md:text-lg
+
+            leading-8
+
+            text-muted
+            `,
+            descriptionClassName
+          )}
+        >
+          {description}
+        </p>
+      )}
+
+      {children}
+    </motion.div>
   );
 }

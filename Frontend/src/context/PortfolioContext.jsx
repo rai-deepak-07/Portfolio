@@ -1,9 +1,6 @@
 import { createContext, useContext, useReducer } from "react";
 
-import {
-  initialState,
-  portfolioReducer,
-} from "./portfolioReducer";
+import { initialState, portfolioReducer, } from "./portfolioReducer";
 
 const PortfolioContext = createContext(null);
 

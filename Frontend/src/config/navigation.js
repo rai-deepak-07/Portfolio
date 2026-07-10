@@ -5,11 +5,6 @@ export const NAVIGATION = [
     to: "home",
   },
   {
-    id: "about",
-    label: "About",
-    to: "about",
-  },
-  {
     id: "services",
     label: "Services",
     to: "services",

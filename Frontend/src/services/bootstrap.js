@@ -1,8 +1,6 @@
 import { getAbout } from "../api/about";
-import { getCertificates } from "../api/certificate";
 import { getMaintenance } from "../api/maintenance";
 import { getProjects } from "../api/project";
-import { getResume } from "../api/resume";
 import { getServices } from "../api/service";
 import { getSkills } from "../api/skill";
 import { getStatistics } from "../api/statistic";
@@ -34,18 +32,14 @@ export async function bootstrapApplication() {
       about,
       services,
       projects,
-      resume,
       skills,
       statistics,
-      certificates,
     ] = await Promise.all([
       getAbout(),
       getServices(),
       getProjects(),
-      getResume(),
       getSkills(),
       getStatistics(),
-      getCertificates(),
     ]);
 
     return {
@@ -55,10 +49,8 @@ export async function bootstrapApplication() {
         about: about.data,
         services: services.data,
         projects: projects.data,
-        resume: resume.data,
         skills: skills.data,
         statistics: statistics.data,
-        certificates: certificates.data,
       },
     };
   } catch (error) {
