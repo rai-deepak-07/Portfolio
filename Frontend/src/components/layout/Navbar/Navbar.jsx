@@ -1,13 +1,12 @@
-import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useSpring } from "framer-motion";
+import { useEffect, useState } from 'react';
+import { motion, useScroll, useSpring } from 'framer-motion';
+import { Menu } from 'lucide-react';
 
-import Logo from "./Logo";
-import DesktopMenu from "./DesktopMenu";
-import ResumeButton from "./ResumeButton";
-import HireButton from "./HireButton";
-import MobileMenu from "./MobileMenu";
+import Logo from './Logo';
+import DesktopMenu from './DesktopMenu';
+import MobileMenu from './MobileMenu';
 
-import { NAVIGATION } from "../../../config/navigation";
+import { NAVIGATION } from '../../../config/navigation';
 
 const NAV_WIDTH = 1180;
 const NAV_WIDTH_SCROLLED = 760;
@@ -15,204 +14,147 @@ const NAV_WIDTH_SCROLLED = 760;
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [visible, setVisible] = useState(true);
-  const [activeSection, setActiveSection] = useState("home");
+  const [activeSection, setActiveSection] = useState('home');
 
-  const lastScroll = useRef(0);
+  // Mobile Drawer State
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const { scrollYProgress } = useScroll();
 
   const scaleX = useSpring(scrollYProgress, {
-    stiffness: 120,
+    stiffness: 140,
     damping: 30,
-    mass: 0.2,
   });
 
-  // ------------------------------------------
-  // Navbar show/hide + active section
-  // ------------------------------------------
-
   useEffect(() => {
-    const sections = NAVIGATION.map((item) =>
-      document.getElementById(item.to)
-    ).filter(Boolean);
+    let previous = window.scrollY;
 
-    const handleScroll = () => {
+    const sections = NAVIGATION.map((item) => document.getElementById(item.to));
+
+    const onScroll = () => {
       const current = window.scrollY;
 
-      setScrolled(current > 25);
+      setScrolled(current > 20);
 
-      // Always visible near top
-      if (current < 80) {
+      if (current < previous || current < 80) {
         setVisible(true);
       } else {
-        const delta = current - lastScroll.current;
-
-        // Hide only if scrolling down enough
-        if (delta > 8) {
-          setVisible(false);
-        }
-
-        // Show immediately on scroll up
-        if (delta < -8) {
-          setVisible(true);
-        }
+        setVisible(false);
       }
 
-      lastScroll.current = current;
+      previous = current;
 
-      // Active section detection
-      for (const section of sections) {
-        const rect = section.getBoundingClientRect();
+      sections.forEach((section) => {
+        if (!section) return;
 
-        if (rect.top <= 140 && rect.bottom >= 140) {
+        const top = section.offsetTop - 120;
+        const bottom = top + section.offsetHeight;
+
+        if (current >= top && current < bottom) {
           setActiveSection(section.id);
-          break;
         }
-      }
+      });
     };
 
-    handleScroll();
+    onScroll();
 
-    window.addEventListener("scroll", handleScroll, {
-      passive: true,
-    });
+    window.addEventListener('scroll', onScroll);
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // ------------------------------------------
-  // Actions
-  // ------------------------------------------
+  // Prevent page scrolling while drawer is open
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+    }
 
-  const handleResumeDownload = () => {
-    window.open(
-      "/resume.pdf",
-      "_blank",
-      "noopener,noreferrer"
-    );
-  };
-
-  const handleHireClick = () => {
-    document
-      .getElementById("contact")
-      ?.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-  };
+    return () => {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+    };
+  }, [mobileOpen]);
 
   return (
     <>
       {/* Scroll Progress */}
-
       <motion.div
         style={{ scaleX }}
-        className="
-          fixed
-          left-0
-          top-0
-          z-[999]
-          h-[2px]
-          w-full
-          origin-left
-          bg-primary
-        "
+        className="fixed left-0 right-0 top-0 z-[9999] h-[4px] origin-left bg-primary"
       />
 
-      {/* Navbar */}
-
+      {/* Floating Navbar */}
       <motion.div
         animate={{
-          y: visible ? 0 : -120,
-          opacity: visible ? 1 : 0,
+          y: visible && !mobileOpen ? 0 : -100,
+          opacity: visible && !mobileOpen ? 1 : 0,
         }}
-        transition={{
-          duration: 0.35,
-          ease: [0.22, 1, 0.36, 1],
-        }}
-        className="
-          fixed
-          inset-x-0
-          top-4
-          z-50
-          flex
-          justify-center
-          px-4
-        "
+        transition={{ duration: 0.35 }}
+        className="fixed inset-x-0 top-4 z-50 flex justify-center px-4"
       >
         <motion.header
           animate={{
-            maxWidth: scrolled
-              ? NAV_WIDTH_SCROLLED
-              : NAV_WIDTH,
-
+            maxWidth: scrolled ? NAV_WIDTH_SCROLLED : NAV_WIDTH,
             paddingLeft: scrolled ? 18 : 28,
-
-            paddingRight: scrolled ? 18 : 18,
+            paddingRight: scrolled ? 16 : 18,
           }}
           transition={{
-            duration: 0.35,
+            duration: 0.4,
             ease: [0.22, 1, 0.36, 1],
           }}
           className={`
-            flex
-            w-full
-            items-center
-            justify-between
-            rounded-full
-            border
-            py-2.5
+  flex w-full items-center justify-between
+  rounded-full
+  border
+  py-2.5
+  transition-all
+  duration-500
 
-            transition-all
-            duration-300
-
-            ${
-              scrolled
-                ? `
-                border-white/10
-                bg-background/80
-                backdrop-blur-2xl
-                shadow-[0_15px_45px_rgba(0,0,0,.35)]
-              `
-                : `
-                border-white/5
-                bg-white/[0.03]
-                backdrop-blur-md
-              `
-            }
-          `}
+  border-white/10
+  bg-white/[0.05]
+  backdrop-blur-3xl
+  shadow-[0_10px_50px_rgba(0,0,0,.25)]
+`}
         >
           {/* Logo */}
-
           <Logo compact={scrolled} />
 
           {/* Desktop Menu */}
-
           <DesktopMenu activeSection={activeSection} />
 
-          {/* Right Side */}
-
-          <div className="flex items-center gap-2">
-            {/* Desktop Only */}
-
-            <ResumeButton
-              onClick={handleResumeDownload}
-              className="hidden lg:inline-flex"
-            />
-
-            <HireButton
-              onClick={handleHireClick}
-              className="hidden lg:inline-flex"
-            />
-
-            {/* Mobile */}
-
-            <MobileMenu />
-          </div>
+          {/* Mobile Hamburger */}
+          <button
+            type="button"
+            onClick={() => setMobileOpen(true)}
+            aria-label="Open Menu"
+            className="
+              flex
+              h-10
+              w-10
+              items-center
+              justify-center
+              rounded-full
+              border
+              border-white/10
+              bg-white/[0.03]
+              transition-all
+              duration-300
+              hover:border-primary/40
+              hover:bg-white/[0.05]
+              lg:hidden
+            "
+          >
+            <Menu size={20} />
+          </button>
         </motion.header>
       </motion.div>
+
+      {/* Mobile Drawer */}
+      <MobileMenu open={mobileOpen} setOpen={setMobileOpen} />
     </>
   );
 }

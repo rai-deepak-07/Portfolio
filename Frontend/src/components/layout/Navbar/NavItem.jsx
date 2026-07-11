@@ -9,7 +9,6 @@ export default function NavItem({
   mobile = false,
   onClick,
 }) {
-
   const handleClick = () => {
     const element = document.getElementById(section);
 
@@ -23,10 +22,6 @@ export default function NavItem({
     onClick?.();
   };
 
-  // ----------------------------
-  // Mobile Version
-  // ----------------------------
-
   if (mobile) {
     return (
       <button
@@ -37,13 +32,11 @@ export default function NavItem({
           w-full
           items-center
           gap-4
-          rounded-xl
-          px-4
-          py-4
+          py-5
           text-left
           transition-all
           duration-300
-          hover:bg-white/5
+          hover:translate-x-2
         "
       >
         <span
@@ -51,7 +44,10 @@ export default function NavItem({
             font-mono
             text-xs
             tracking-[0.25em]
-            text-primary
+            text-primary/60
+            transition-colors
+            duration-300
+            group-hover:text-primary
           "
         >
           {String(index).padStart(2, "0")}
@@ -73,27 +69,36 @@ export default function NavItem({
     );
   }
 
-  // ----------------------------
-  // Desktop Version
-  // ----------------------------
-
   return (
     <button
       onClick={handleClick}
       className={cn(
-        "relative flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-colors duration-300",
-        active
-          ? "text-white"
-          : "text-muted hover:text-white"
+        `
+        group
+        relative
+        flex
+        cursor-pointer
+        items-center
+        gap-2
+        rounded-full
+        px-4
+        py-2
+        text-sm
+        font-medium
+        transition-all
+        duration-300
+        hover:text-white
+      `,
+        active ? "text-white" : "text-muted"
       )}
     >
       {active && (
         <motion.span
-          layoutId="active-navbar-pill"
+          layoutId="navbar-pill"
           transition={{
             type: "spring",
-            stiffness: 400,
-            damping: 35,
+            stiffness: 380,
+            damping: 30,
           }}
           className="
             absolute
@@ -108,10 +113,17 @@ export default function NavItem({
 
       <span
         className={cn(
-          "relative font-mono text-[10px] tracking-[0.2em]",
+          `
+            relative
+            font-mono
+            text-[10px]
+            tracking-[0.22em]
+            transition-colors
+            duration-300
+          `,
           active
             ? "text-primary"
-            : "text-white/30"
+            : "text-white/30 group-hover:text-primary"
         )}
       >
         {String(index).padStart(2, "0")}
@@ -120,6 +132,29 @@ export default function NavItem({
       <span className="relative">
         {label}
       </span>
+
+      {!active && (
+        <motion.span
+          initial={{
+            scaleX: 0,
+          }}
+          whileHover={{
+            scaleX: 1,
+          }}
+          transition={{
+            duration: 0.25,
+          }}
+          className="
+            absolute
+            bottom-1
+            left-4
+            right-4
+            h-px
+            origin-left
+            bg-primary
+          "
+        />
+      )}
     </button>
   );
 }
