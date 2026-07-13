@@ -8,11 +8,18 @@ export const initialState = {
   maintenance: null,
 
   // Portfolio Data
-  about: null,
-  services: [],
-  projects: [],
-  skills: [],
+  configuration: null,
   statistics: [],
+  services: [],
+  technologies: [],
+  faqs: [],
+
+  homeProjects: [],
+  featuredProjects: [],
+
+
+  about: null,
+  skills: [],
 };
 
 export function portfolioReducer(state, action) {
@@ -41,16 +48,53 @@ export function portfolioReducer(state, action) {
         maintenance: action.payload,
       };
 
-    case PORTFOLIO_ACTIONS.SET_ABOUT:
+    case PORTFOLIO_ACTIONS.SET_CONFIGURATION:
       return {
         ...state,
-        about: action.payload,
+        configuration: action.payload,
+      };
+
+    case PORTFOLIO_ACTIONS.SET_STATISTICS:
+      return {
+        ...state,
+        statistics: action.payload,
       };
 
     case PORTFOLIO_ACTIONS.SET_SERVICES:
       return {
         ...state,
         services: action.payload,
+      };
+
+    case PORTFOLIO_ACTIONS.SET_HOME_PROJECTS:
+      return {
+        ...state,
+        homeProjects: action.payload,
+      };
+
+    case PORTFOLIO_ACTIONS.SET_FEATURED_PROJECTS:
+      return {
+        ...state,
+        featuredProjects: action.payload,
+      };
+
+    case PORTFOLIO_ACTIONS.SET_TECHNOLOGIES:
+      return {
+        ...state,
+        technologies: action.payload,
+      };
+
+    case PORTFOLIO_ACTIONS.SET_FAQS:
+      return {
+        ...state,
+        faqs: action.payload,
+      };
+
+
+    case PORTFOLIO_ACTIONS.SET_ABOUT:
+      return {
+        ...state,
+        about: action.payload,
       };
 
     case PORTFOLIO_ACTIONS.SET_PROJECTS:
@@ -65,11 +109,6 @@ export function portfolioReducer(state, action) {
         skills: action.payload,
       };
 
-    case PORTFOLIO_ACTIONS.SET_STATISTICS:
-      return {
-        ...state,
-        statistics: action.payload,
-      };
 
     case PORTFOLIO_ACTIONS.RESET:
       return initialState;

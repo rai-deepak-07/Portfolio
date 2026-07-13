@@ -15,9 +15,14 @@ export const NAVIGATION = [
     to: "projects",
   },
   {
-    id: "resume",
-    label: "Resume",
-    to: "resume",
+    id: "why-work-with-me",
+    label: "Why Me?",
+    to: "why-work-with-me",
+  },
+  {
+    id: "faq",
+    label: "FAQs",
+    to: "faq",
   },
   {
     id: "contact",

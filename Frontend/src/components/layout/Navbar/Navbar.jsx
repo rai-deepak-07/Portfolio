@@ -8,8 +8,8 @@ import MobileMenu from './MobileMenu';
 
 import { NAVIGATION } from '../../../config/navigation';
 
-const NAV_WIDTH = 1180;
-const NAV_WIDTH_SCROLLED = 760;
+const NAV_WIDTH = 1220;
+const NAV_WIDTH_SCROLLED = 800;
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -107,24 +107,24 @@ export default function Navbar() {
             ease: [0.22, 1, 0.36, 1],
           }}
           className={`
-  flex w-full items-center justify-between
-  rounded-full
-  border
-  py-2.5
-  transition-all
-  duration-500
+            flex w-full items-center justify-between
+            rounded-full
+            border
+            py-2.5
+            transition-all
+            duration-500
 
-  border-white/10
-  bg-white/[0.05]
-  backdrop-blur-3xl
-  shadow-[0_10px_50px_rgba(0,0,0,.25)]
-`}
+            border-white/10
+            bg-white/[0.05]
+            backdrop-blur-3xl
+            shadow-[0_10px_50px_rgba(0,0,0,.25)]
+          `}
         >
           {/* Logo */}
           <Logo compact={scrolled} />
 
           {/* Desktop Menu */}
-          <DesktopMenu activeSection={activeSection} />
+          <DesktopMenu activeSection={activeSection} scrolled = {scrolled} />
 
           {/* Mobile Hamburger */}
           <button

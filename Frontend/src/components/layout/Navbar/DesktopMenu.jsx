@@ -6,10 +6,7 @@ import HireButton from "./HireButton";
 
 import { NAVIGATION } from "../../../config/navigation";
 
-export default function DesktopMenu({ activeSection }) {
-  const handleResumeDownload = () => {
-    window.open("/resume.pdf", "_blank", "noopener,noreferrer");
-  };
+export default function DesktopMenu({ activeSection, scrolled }) {
 
   const handleHireClick = () => {
     document
@@ -47,10 +44,9 @@ export default function DesktopMenu({ activeSection }) {
         />
       ))}
 
-      <div className="ml-3 flex items-center gap-2">
+      <div className={`ml-3 flex items-center gap-2 ${scrolled? 'hidden': ''}`}>
         <ResumeButton
           className="hidden lg:inline-flex"
-          onClick={handleResumeDownload}
         />
 
         <HireButton

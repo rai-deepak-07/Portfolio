@@ -1,16 +1,17 @@
-import { motion } from "framer-motion";
-import { ArrowUpRight, Download } from "lucide-react";
+import { motion } from 'framer-motion';
+import { ArrowUpRight, Download } from 'lucide-react';
 
-import Container from "../../components/ui/Container";
-import SectionTitle from "../../components/ui/SectionTitle";
-import Button from "../../components/ui/Button";
+import Container from '../../components/ui/Container';
+import SectionTitle from '../../components/ui/SectionTitle';
+import Button from '../../components/ui/Button';
+import { usePortfolio } from '../../context/PortfolioContext';
 
 export default function ContactCTASection() {
+  const { state } = usePortfolio();
+  const resumeDownloadUrl = state?.configuration?.website?.resume;
+
   return (
-    <section
-      id="contact"
-      className="relative overflow-hidden py-20 md:py-24"
-    >
+    <section id="contact" className="relative overflow-hidden py-20 md:py-24">
       {/* Background Grid */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.03)_1px,transparent_1px)] bg-[size:64px_64px] opacity-5" />
 
@@ -69,12 +70,26 @@ export default function ContactCTASection() {
                 Start a Project
               </Button>
 
-              <Button
-                variant="outline"
-                rightIcon={<Download size={18} />}
-              >
-                Download Resume
-              </Button>
+              {resumeDownloadUrl ? (
+                <a
+                  href={resumeDownloadUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  download
+                >
+                  <Button variant="outline" rightIcon={<Download size={18} />}>
+                    Download Resume
+                  </Button>
+                </a>
+              ) : (
+                <Button
+                  variant="outline"
+                  disabled
+                  rightIcon={<Download size={18} />}
+                >
+                  Resume Unavailable
+                </Button>
+              )}
             </div>
 
             {/* Divider */}

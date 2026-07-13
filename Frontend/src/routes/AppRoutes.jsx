@@ -7,6 +7,7 @@ import HomePage from "../pages/Home/HomePage";
 import NotFoundPage from "../pages/NotFound/NotFoundPage";
 import MaintenancePage from "../pages/Maintenance/MaintenancePage";
 import ServerDownPage from "../pages/ServerDown/ServerDownPage";
+import ProjectsPage from "../pages/Project/ProjectsPage";
 
 export default function AppRoutes() {
   return (
@@ -19,6 +20,7 @@ export default function AppRoutes() {
             path="/"
             element={<HomePage />}
           />
+          <Route path="/projects" element={<ProjectsPage />}/>
 
         </Route>
 

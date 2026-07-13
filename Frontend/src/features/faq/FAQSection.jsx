@@ -1,78 +1,42 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Plus, ArrowRight, MessageCircle } from "lucide-react";
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Plus, ArrowRight, MessageCircle } from 'lucide-react';
 
-import Container from "../../components/ui/Container";
-import SectionTitle from "../../components/ui/SectionTitle";
-import Button from "../../components/ui/Button";
+import Container from '../../components/ui/Container';
+import SectionTitle from '../../components/ui/SectionTitle';
+import Button from '../../components/ui/Button';
+import { usePortfolio } from '../../context/PortfolioContext';
 
-const faqs = [
-  {
-    question: "What services do you provide?",
-    answer:
-      "I build complete web applications including UI development, backend systems, REST APIs, authentication, dashboards, deployment and long-term maintenance.",
-  },
-  {
-    question: "Which technologies do you specialize in?",
-    answer:
-      "My primary stack includes React, Tailwind CSS, Framer Motion, Python, Django, Django REST Framework, PostgreSQL, Docker and modern deployment platforms.",
-  },
-  {
-    question: "Can you develop complete products?",
-    answer:
-      "Yes. I handle the complete lifecycle from planning and UI implementation to backend architecture, database design, deployment and optimization.",
-  },
-  {
-    question: "Can you redesign an existing project?",
-    answer:
-      "Absolutely. I can modernize existing applications with better UX, improved performance, cleaner architecture and responsive layouts.",
-  },
-  {
-    question: "Do you build secure REST APIs?",
-    answer:
-      "Yes. I implement JWT authentication, authorization, validation, secure endpoints and scalable API architecture using Django REST Framework.",
-  },
-  {
-    question: "Do you offer deployment and maintenance?",
-    answer:
-      "Yes. I can deploy applications, monitor them, fix issues and provide continuous improvements after launch.",
-  },
-  {
-    question: "How do we start working together?",
-    answer:
-      "Simply reach out through the contact section. We'll discuss your requirements, define the scope and create a development plan.",
-  },
-];
-
-function FAQItem({item,isOpen,onClick}){
+function FAQItem({ item, isOpen, onClick }) {
   return (
-    <motion.div layout className="group overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-xl hover:border-primary/40 transition-all">
+    <motion.div
+      layout
+      className="group overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-xl hover:border-primary/40 transition-all"
+    >
       <button
         onClick={onClick}
         className="flex w-full items-center justify-between gap-6 p-5 text-left"
       >
         <h3 className="text-base font-semibold">{item.question}</h3>
         <motion.div
-          animate={{rotate:isOpen?45:0}}
-          transition={{duration:.25}}
+          animate={{ rotate: isOpen ? 45 : 0 }}
+          transition={{ duration: 0.25 }}
           className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary"
         >
-          <Plus size={18}/>
+          <Plus size={18} />
         </motion.div>
       </button>
 
       <AnimatePresence initial={false}>
         {isOpen && (
           <motion.div
-            initial={{height:0,opacity:0}}
-            animate={{height:"auto",opacity:1}}
-            exit={{height:0,opacity:0}}
-            transition={{duration:.35}}
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.35 }}
           >
             <div className="border-t border-white/10 px-5 pb-5 pt-4">
-              <p className="text-sm leading-7 text-muted">
-                {item.answer}
-              </p>
+              <p className="text-sm leading-7 text-muted">{item.answer}</p>
             </div>
           </motion.div>
         )}
@@ -81,8 +45,11 @@ function FAQItem({item,isOpen,onClick}){
   );
 }
 
-export default function FAQSection(){
-  const [open,setOpen]=useState(0);
+export default function FAQSection() {
+  const [open, setOpen] = useState(-1);
+  const { state } = usePortfolio();
+
+  const faqs = state.faqs || [];
 
   return (
     <section id="faq" className="relative overflow-hidden py-20 md:py-24">
@@ -99,9 +66,9 @@ export default function FAQSection(){
 
         <div className="mt-14 grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
           <motion.div
-            initial={{opacity:0,x:-30}}
-            whileInView={{opacity:1,x:0}}
-            viewport={{once:true}}
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
             className="sticky top-28 self-start"
           >
             <h2 className="text-4xl font-bold leading-tight">
@@ -117,39 +84,41 @@ export default function FAQSection(){
 
             <div className="mt-8 rounded-2xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur-xl">
               <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                <MessageCircle size={22}/>
+                <MessageCircle size={22} />
               </div>
 
-              <h3 className="text-xl font-semibold">
-                Let's Talk
-              </h3>
+              <h3 className="text-xl font-semibold">Let's Talk</h3>
 
               <p className="mt-3 text-sm leading-6 text-muted">
                 Ready to build something amazing? Let's discuss your project.
               </p>
 
               <div className="mt-6">
-                <Button rightIcon={<ArrowRight size={18}/>}>
-                  Contact Me
-                </Button>
+                <Button rightIcon={<ArrowRight size={18} />}>Contact Me</Button>
               </div>
             </div>
           </motion.div>
 
           <motion.div
-            initial={{opacity:0,x:30}}
-            whileInView={{opacity:1,x:0}}
-            viewport={{once:true}}
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
             className="space-y-4"
           >
-            {faqs.map((faq,index)=>(
-              <FAQItem
-                key={faq.question}
-                item={faq}
-                isOpen={open===index}
-                onClick={()=>setOpen(open===index?-1:index)}
-              />
-            ))}
+            {faqs.length > 0 ? (
+              faqs.map((faq, index) => (
+                <FAQItem
+                  key={faq.id}
+                  item={faq}
+                  isOpen={open === index}
+                  onClick={() => setOpen(open === index ? -1 : index)}
+                />
+              ))
+            ) : (
+              <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-8 text-center text-muted">
+                No FAQs available.
+              </div>
+            )}
           </motion.div>
         </div>
       </Container>

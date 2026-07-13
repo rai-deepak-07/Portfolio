@@ -1,14 +1,14 @@
-import { useEffect } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { ArrowUpRight, Sparkles, X } from "lucide-react";
-import { createPortal } from "react-dom";
+import { useEffect } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { ArrowUpRight, Sparkles, X } from 'lucide-react';
+import { createPortal } from 'react-dom';
 
-import { NAVIGATION } from "../../../config/navigation";
+import { NAVIGATION } from '../../../config/navigation';
 
-import Logo from "./Logo";
-import NavItem from "./NavItem";
-import ResumeButton from "./ResumeButton";
-import HireButton from "./HireButton";
+import Logo from './Logo';
+import NavItem from './NavItem';
+import ResumeButton from './ResumeButton';
+import HireButton from './HireButton';
 
 export default function MobileMenu({ open, setOpen }) {
   const closeMenu = () => setOpen(false);
@@ -17,17 +17,17 @@ export default function MobileMenu({ open, setOpen }) {
     if (!open) return;
 
     const handleKeyDown = (e) => {
-      if (e.key === "Escape") {
+      if (e.key === 'Escape') {
         closeMenu();
       }
     };
 
-    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener('keydown', handleKeyDown);
 
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, [open]);
 
-  if (typeof document === "undefined") return null;
+  if (typeof document === 'undefined') return null;
 
   return createPortal(
     <AnimatePresence mode="wait">
@@ -186,12 +186,10 @@ export default function MobileMenu({ open, setOpen }) {
                     closeMenu();
 
                     setTimeout(() => {
-                      document
-                        .getElementById(item.to)
-                        ?.scrollIntoView({
-                          behavior: "smooth",
-                          block: "start",
-                        });
+                      document.getElementById(item.to)?.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start',
+                      });
                     }, 250);
                   }}
                   className="
@@ -231,7 +229,7 @@ export default function MobileMenu({ open, setOpen }) {
                         text-primary
                       "
                     >
-                      {String(index + 1).padStart(2, "0")}
+                      {String(index + 1).padStart(2, '0')}
                     </div>
 
                     <div>
@@ -299,11 +297,7 @@ export default function MobileMenu({ open, setOpen }) {
                 <ResumeButton
                   className="justify-center"
                   onClick={() => {
-                    window.open(
-                      "/resume.pdf",
-                      "_blank",
-                      "noopener,noreferrer"
-                    );
+                    window.open('/resume.pdf', '_blank', 'noopener,noreferrer');
 
                     closeMenu();
                   }}
@@ -315,12 +309,10 @@ export default function MobileMenu({ open, setOpen }) {
                     closeMenu();
 
                     setTimeout(() => {
-                      document
-                        .getElementById("contact")
-                        ?.scrollIntoView({
-                          behavior: "smooth",
-                          block: "start",
-                        });
+                      document.getElementById('contact')?.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start',
+                      });
                     }, 250);
                   }}
                 />

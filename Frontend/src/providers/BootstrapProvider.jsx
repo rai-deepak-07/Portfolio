@@ -1,16 +1,16 @@
-import { useCallback } from "react";
+import { useCallback } from 'react';
 
-import { usePortfolio } from "../context/PortfolioContext";
+import { usePortfolio } from '../context/PortfolioContext';
 
-import { PORTFOLIO_ACTIONS } from "../context/portfolioActions";
+import { PORTFOLIO_ACTIONS } from '../context/portfolioActions';
 
-import useBootstrap from "../hooks/useBootstrap";
+import useBootstrap from '../hooks/useBootstrap';
 
-import LoadingPage from "../pages/Loading/LoadingPage";
+import LoadingPage from '../pages/Loading/LoadingPage';
 
-import MaintenancePage from "../pages/Maintenance/MaintenancePage";
+import MaintenancePage from '../pages/Maintenance/MaintenancePage';
 
-import ServerDownPage from "../pages/ServerDown/ServerDownPage";
+import ServerDownPage from '../pages/ServerDown/ServerDownPage';
 
 export default function BootstrapProvider({ children }) {
   const { state, dispatch } = usePortfolio();
@@ -18,7 +18,7 @@ export default function BootstrapProvider({ children }) {
   const handleBootstrap = useCallback(
     (result) => {
       switch (result.status) {
-        case "server-down":
+        case 'server-down':
           dispatch({
             type: PORTFOLIO_ACTIONS.SET_SERVER_DOWN,
             payload: true,
@@ -31,7 +31,7 @@ export default function BootstrapProvider({ children }) {
 
           return;
 
-        case "maintenance":
+        case 'maintenance':
           dispatch({
             type: PORTFOLIO_ACTIONS.SET_MAINTENANCE,
             payload: result.maintenance,
@@ -44,15 +44,45 @@ export default function BootstrapProvider({ children }) {
 
           return;
 
-        case "ready":
+        case 'ready':
           dispatch({
-            type: PORTFOLIO_ACTIONS.SET_ABOUT,
-            payload: result.data.about,
+            type: PORTFOLIO_ACTIONS.SET_CONFIGURATION,
+            payload: result.data.configuration,
+          });
+         
+          dispatch({
+            type: PORTFOLIO_ACTIONS.SET_STATISTICS,
+            payload: result.data.statistics,
           });
 
           dispatch({
             type: PORTFOLIO_ACTIONS.SET_SERVICES,
             payload: result.data.services,
+          });
+
+          dispatch({
+            type: PORTFOLIO_ACTIONS.SET_HOME_PROJECTS,
+            payload: result.data.homeProjects,
+          });
+          
+          dispatch({
+            type: PORTFOLIO_ACTIONS.SET_FEATURED_PROJECTS,
+            payload: result.data.featuredProjects,
+          });
+
+          dispatch({
+            type: PORTFOLIO_ACTIONS.SET_TECHNOLOGIES,
+            payload: result.data.technologies,
+          });
+
+          dispatch({
+            type: PORTFOLIO_ACTIONS.SET_FAQS,
+            payload: result.data.faqs,
+          });
+
+          dispatch({
+            type: PORTFOLIO_ACTIONS.SET_ABOUT,
+            payload: result.data.about,
           });
 
           dispatch({
@@ -63,11 +93,6 @@ export default function BootstrapProvider({ children }) {
           dispatch({
             type: PORTFOLIO_ACTIONS.SET_SKILLS,
             payload: result.data.skills,
-          });
-
-          dispatch({
-            type: PORTFOLIO_ACTIONS.SET_STATISTICS,
-            payload: result.data.statistics,
           });
 
           dispatch({

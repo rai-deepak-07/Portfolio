@@ -63,14 +63,14 @@ function FeatureCard({ item }) {
   const Icon = item.icon;
   return (
     <motion.div
-      whileHover={{ y: -8, scale: 1.03 }}
-      className="rounded-3xl border border-white/10 bg-white/[0.05] p-6 backdrop-blur-xl transition-all duration-300 hover:border-primary/40 hover:shadow-[0_20px_60px_rgba(91,140,255,.18)]"
+      whileHover={{ y: -6, scale: 1.03 }}
+      className="rounded-2xl border border-white/10 bg-white/[0.05] p-5 backdrop-blur-xl transition-all duration-300 hover:border-primary/40 hover:shadow-[0_20px_60px_rgba(91,140,255,.18)]"
     >
-      <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary">
-        <Icon size={26} />
+      <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+        <Icon size={24} />
       </div>
-      <h3 className="text-xl font-semibold">{item.title}</h3>
-      <p className="mt-4 leading-7 text-muted">{item.description}</p>
+      <h3 className="text-lg font-semibold">{item.title}</h3>
+      <p className="mt-3.5 text-base leading-6 md:leading-7 text-muted">{item.description}</p>
     </motion.div>
   );
 }

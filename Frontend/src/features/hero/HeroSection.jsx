@@ -1,3 +1,4 @@
+import { useId } from "react";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
@@ -6,6 +7,7 @@ import {
   Database,
   Download,
   Globe,
+  Layers3,
 } from "lucide-react";
 
 import heroImage from "../../assets/hero.png";
@@ -13,6 +15,8 @@ import heroImage from "../../assets/hero.png";
 import Container from "../../components/ui/Container";
 import Button from "../../components/ui/Button";
 import Badge from "../../components/ui/Badge";
+
+import { usePortfolio } from "../../context/PortfolioContext";
 
 const technologies = [
   "React",
@@ -23,36 +27,30 @@ const technologies = [
   "JavaScript",
 ];
 
-const statistics = [
-  {
-    value: "25+",
-    label: "Projects",
-  },
-  {
-    value: "100+",
-    label: "DSA Problems",
-  },
-  {
-    value: "2+",
-    label: "Years Learning",
-  },
-];
-
 const floatingCards = [
   {
     title: "React",
-    icon: <Code2 size={20} />,
+    subtitle: "Frontend",
+    icon: <Code2 size={16} />,
     position: "top-8 left-0",
   },
   {
     title: "Django",
-    icon: <Database size={20} />,
+    subtitle: "Backend",
+    icon: <Database size={16} />,
     position: "top-28 right-0",
   },
   {
     title: "REST API",
-    icon: <Globe size={20} />,
-    position: "bottom-12 left-4",
+    subtitle: "Architecture",
+    icon: <Globe size={16} />,
+    position: "bottom-12 left-5",
+  },
+  {
+    title: "PostgreSQL",
+    subtitle: "Database",
+    icon: <Layers3 size={16} />,
+    position: "bottom-24 right-2",
   },
 ];
 
@@ -61,31 +59,46 @@ const fadeUp = {
     opacity: 0,
     y: 40,
   },
+
   visible: (delay = 0) => ({
     opacity: 1,
     y: 0,
+
     transition: {
       delay,
       duration: 0.7,
+      ease: "easeOut",
     },
   }),
 };
 
 export default function HeroSection() {
+  const { state } = usePortfolio();
+  const orbitPathId = useId();
+
+  const resumeUrl =
+    state?.configuration?.website?.resume || null;
+
   return (
     <section
       id="home"
       className="
         relative
-        overflow-hidden
-        pt-36
-        pb-24
-        lg:min-h-screen
         flex
         items-center
+        overflow-hidden
+
+        pt-28
+        pb-16
+
+        lg:min-h-screen
+        lg:pt-30
+        lg:pb-10
       "
     >
-      {/* Background Blur */}
+      {/* ==========================================
+          BACKGROUND
+      ========================================== */}
 
       <div
         className="
@@ -98,45 +111,47 @@ export default function HeroSection() {
         <div
           className="
             absolute
-            left-0
-            top-0
+            -left-32
+            -top-20
+
             h-[420px]
             w-[420px]
+
             rounded-full
+
             bg-primary/20
-            blur-[140px]
+
+            blur-[150px]
           "
         />
 
         <div
           className="
             absolute
-            right-0
+            -right-24
             bottom-0
-            h-[450px]
-            w-[450px]
+
+            h-[460px]
+            w-[460px]
+
             rounded-full
+
             bg-secondary/20
-            blur-[160px]
+
+            blur-[170px]
           "
         />
 
-        {/* Animated line grid, faded toward the top so it reads as depth
-            rather than a flat tile pattern */}
         <div
-          className="
-            absolute
-            inset-0
-            opacity-[0.07]
-          "
+          className="absolute inset-0 opacity-[0.06]"
           style={{
             backgroundImage:
-              "linear-gradient(to right, rgba(99,102,241,0.8) 1px, transparent 1px), linear-gradient(to bottom, rgba(99,102,241,0.8) 1px, transparent 1px)",
-            backgroundSize: "56px 56px",
+              "linear-gradient(to right, rgba(99,102,241,.8) 1px, transparent 1px),linear-gradient(to bottom, rgba(99,102,241,.8) 1px, transparent 1px)",
+            backgroundSize: "58px 58px",
             maskImage:
-              "radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%)",
+              "radial-gradient(circle at top, black 30%, transparent 95%)",
             WebkitMaskImage:
-              "radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%)",
+              "radial-gradient(circle at top, black 30%, transparent 95%)",
           }}
         />
       </div>
@@ -146,15 +161,16 @@ export default function HeroSection() {
           className="
             grid
             items-center
-            gap-20
+
+            gap-12
+
             lg:grid-cols-2
+            lg:gap-20
           "
         >
-
-
-          {/* ===========================
-              LEFT CONTENT
-          =========================== */}
+          {/* ==========================================
+              LEFT
+          ========================================== */}
 
           <div className="relative z-10">
 
@@ -168,11 +184,11 @@ export default function HeroSection() {
             >
               <Badge
                 variant="success"
-                pulse={true}
-                // leftIcon={<CheckCircle2 size={15} />}
-                className="mb-6"
+                pulse
+                leftIcon={<CheckCircle2 size={13} />}
+                className="px-3.5 py-1.5"
               >
-                Available for Freelance
+                Available for Freelance • Remote • Full-Time
               </Badge>
             </motion.div>
 
@@ -184,35 +200,42 @@ export default function HeroSection() {
               animate="visible"
               variants={fadeUp}
               className="
-                text-5xl
+                mt-7
+
+                max-w-2xl
+
+                text-[2.4rem]
                 font-black
-                leading-tight
 
-                sm:text-6xl
+                leading-[1]
 
-                lg:text-7xl
+                tracking-[-0.03em]
+
+                sm:text-[3.3rem]
+
+                lg:text-[3.6rem]
               "
             >
-              Engineering
+              Software Engineer
 
               <span
                 className="
+                  mt-2
+
                   block
 
                   bg-gradient-to-r
                   from-primary
                   via-cyan-400
-                  to-secondary
+                  to-violet-400
 
                   bg-clip-text
 
                   text-transparent
                 "
               >
-                Digital Products
+                Full Stack Developer
               </span>
-
-              That Scale.
             </motion.h1>
 
             {/* Description */}
@@ -223,24 +246,30 @@ export default function HeroSection() {
               animate="visible"
               variants={fadeUp}
               className="
-                mt-8
-
+                mt-7
+                text-justify
                 max-w-xl
 
-                text-lg
+                text-[15px]
 
-                leading-8
+                leading-7
 
                 text-muted
+
+                md:text-[17px]
               "
             >
-              I design and build premium web applications using
-              React, Django, REST APIs, PostgreSQL, and modern
-              frontend technologies focused on performance,
-              scalability, and exceptional user experience.
+              I build secure, scalable and modern web applications
+              using <span className="font-semibold text-white">React</span>,
+              <span className="font-semibold text-white"> Django</span> and
+              <span className="font-semibold text-white"> PostgreSQL</span>.
+
+              From responsive user interfaces to REST APIs,
+              authentication, deployment and long-term maintenance,
+              I deliver complete production-ready software solutions.
             </motion.p>
 
-            {/* CTA Buttons */}
+            {/* CTA */}
 
             <motion.div
               custom={0.45}
@@ -248,7 +277,7 @@ export default function HeroSection() {
               animate="visible"
               variants={fadeUp}
               className="
-                mt-10
+                mt-8
 
                 flex
                 flex-wrap
@@ -257,116 +286,101 @@ export default function HeroSection() {
               "
             >
               <Button
-                size="lg"
+                size="md"
                 rightIcon={<ArrowRight size={18} />}
+                onClick={() =>
+                  document
+                    .getElementById("contact")
+                    ?.scrollIntoView({
+                      behavior: "smooth",
+                    })
+                }
               >
-                Hire Me
+                Start a Project
               </Button>
 
-              <Button
-                variant="secondary"
-                size="lg"
-                leftIcon={<Download size={18} />}
-              >
-                Download Resume
-              </Button>
+              {resumeUrl ? (
+                <a
+                  href={resumeUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  download
+                >
+                  <Button
+                    variant="outline"
+                    size="md"
+                    leftIcon={<Download size={18} />}
+                  >
+                    Download Resume
+                  </Button>
+                </a>
+              ) : (
+                <Button
+                  variant="outline"
+                  size="md"
+                  disabled
+                >
+                  Resume Unavailable
+                </Button>
+              )}
             </motion.div>
 
-            {/* Technology Stack */}
+            {/* Technologies */}
 
             <motion.div
               custom={0.6}
               initial="hidden"
               animate="visible"
               variants={fadeUp}
-              className="
-                mt-12
-
-                flex
-                flex-wrap
-
-                gap-3
-              "
+              className="mt-10"
             >
-              {technologies.map((tech) => (
-                <Badge
-                  key={tech}
-                  variant="outline"
-                >
-                  {tech}
-                </Badge>
-              ))}
-            </motion.div>
+              <p
+                className="
+                  mb-4
 
-            {/* Statistics */}
+                  text-xs
 
-            <motion.div
-              custom={0.75}
-              initial="hidden"
-              animate="visible"
-              variants={fadeUp}
-              className="
-                mt-14
+                  font-semibold
 
-                grid
+                  uppercase
 
-                grid-cols-3
+                  tracking-[0.28em]
 
-                gap-5
-              "
-            >
-              {statistics.map((item) => (
-                <div
-                  key={item.label}
-                  className="
-                    rounded-2xl
+                  text-primary
+                "
+              >
+                Core Technologies
+              </p>
 
-                    border
-                    border-white/10
+              <div
+                className="
+                  flex
+                  flex-wrap
 
-                    bg-white/5
-
-                    p-5
-
-                    backdrop-blur-xl
-                  "
-                >
-                  <h3
-                    className="
-                      text-3xl
-                      font-bold
-
-                      text-primary
-                    "
+                  gap-3
+                "
+              >
+                {technologies.map((item) => (
+                  <Badge
+                    key={item}
+                    variant="glass"
                   >
-                    {item.value}
-                  </h3>
-
-                  <p
-                    className="
-                      mt-2
-
-                      text-sm
-
-                      text-muted
-                    "
-                  >
-                    {item.label}
-                  </p>
-                </div>
-              ))}
+                    {item}
+                  </Badge>
+                ))}
+              </div>
             </motion.div>
 
           </div>
 
-          {/* ===========================
-              RIGHT CONTENT
-          =========================== */}
+          {/* ==========================================
+              RIGHT
+          ========================================== */}
 
           <motion.div
             initial={{
               opacity: 0,
-              x: 80,
+              x: 60,
             }}
             animate={{
               opacity: 1,
@@ -374,88 +388,197 @@ export default function HeroSection() {
             }}
             transition={{
               duration: 0.8,
-              delay: 0.3,
+              delay: 0.25,
             }}
             className="
               relative
+
               flex
               items-center
               justify-center
+
+              mt-12
+
+              lg:mt-0
             "
           >
-            {/* Main Glow */}
+            {/* Background Glow — two quiet blobs instead of one loud tri-color one */}
 
             <div
               className="
                 absolute
 
-                h-[520px]
-                w-[520px]
+                h-[440px]
+                w-[440px]
 
                 rounded-full
 
-                bg-gradient-to-br
-                from-primary/20
-                via-secondary/15
-                to-cyan-400/10
+                bg-primary/15
+
+                blur-[110px]
+              "
+            />
+
+            <div
+              className="
+                absolute
+
+                h-[220px]
+                w-[220px]
+
+                translate-x-24
+                translate-y-24
+
+                rounded-full
+
+                bg-[#5EEAD4]/10
 
                 blur-[90px]
               "
             />
 
-            {/* Hero Image */}
+            {/* Faint dot-grid so the glass card has something to sit on */}
+
+            <div
+              className="
+                absolute
+
+                h-[480px]
+                w-[480px]
+
+                rounded-full
+
+                text-white
+
+                opacity-[0.12]
+
+                [background-image:radial-gradient(currentColor_1px,transparent_1px)]
+                [background-size:18px_18px]
+              "
+            />
+
+            {/* Signature: rotating orbit label, replaces the old plain ring */}
+
+            <motion.svg
+              viewBox="0 0 560 560"
+              animate={{ rotate: 360 }}
+              transition={{
+                repeat: Infinity,
+                duration: 40,
+                ease: "linear",
+              }}
+              className="absolute h-[560px] w-[560px]"
+            >
+              <path
+                id={orbitPathId}
+                fill="none"
+                d="M 280,280 m -230,0 a 230,230 0 1,1 460,0 a 230,230 0 1,1 -460,0"
+              />
+              <text
+                className="font-mono uppercase"
+                fill="#5EEAD4"
+                fontSize="12"
+                letterSpacing="3"
+                opacity="0.7"
+              >
+                <textPath href={`#${orbitPathId}`} startOffset="0%">
+                  {"React — Django — PostgreSQL — REST API — ".repeat(3)}
+                </textPath>
+              </text>
+            </motion.svg>
+
+            {/* Depth card — a second, quieter panel offset behind the main one */}
+
+            <div
+              className="
+                absolute
+
+                h-[340px]
+                w-[300px]
+
+                -rotate-6
+
+                rounded-[30px]
+
+                border
+                border-white/10
+
+                bg-white/[0.02]
+
+                backdrop-blur-xl
+              "
+            />
+
+            {/* Hero Card */}
 
             <motion.div
               animate={{
-                y: [0, -12, 0],
+                y: [0, -10, 0],
               }}
               transition={{
-                duration: 5,
+                duration: 6,
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
               className="
                 relative
+
                 z-20
 
                 overflow-hidden
 
-                rounded-[36px]
+                rounded-[34px]
 
                 border
                 border-white/10
 
-                bg-white/5
+                bg-white/[0.04]
 
                 p-5
 
                 backdrop-blur-2xl
 
-                shadow-[0_25px_80px_rgba(0,0,0,.35)]
+                shadow-[0_35px_90px_rgba(0,0,0,.35)]
               "
             >
               <img
                 src={heroImage}
-                alt="Hero"
+                alt="Deepak Raikwar"
                 className="
                   w-full
-                  max-w-md
 
-                  rounded-3xl
+                  max-w-[420px]
+
+                  rounded-[28px]
 
                   object-cover
+
+                  lg:max-w-[460px]
                 "
               />
+
+              {/* Thin caption strip fused to the card */}
+
+              <div className="mt-3 flex items-center justify-between px-1">
+                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
+                  Portfolio — 2026
+                </span>
+
+                <span className="flex items-center gap-1.5 text-[10px] text-muted">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#5EEAD4]" />
+                  Available
+                </span>
+              </div>
             </motion.div>
 
-            {/* Floating Cards */}
+            {/* Floating Cards — slim pills, no boxed icons, so four of them stay light */}
 
             {floatingCards.map((card, index) => (
               <motion.div
                 key={card.title}
                 initial={{
                   opacity: 0,
-                  scale: .8,
+                  scale: 0.9,
                 }}
                 animate={{
                   opacity: 1,
@@ -463,8 +586,8 @@ export default function HeroSection() {
                   y: [0, -10, 0],
                 }}
                 transition={{
-                  delay: index * .25,
-                  duration: 4,
+                  delay: index * 0.2,
+                  duration: 5 + index,
                   repeat: Infinity,
                   ease: "easeInOut",
                 }}
@@ -475,57 +598,33 @@ export default function HeroSection() {
                   z-30
 
                   flex
+
                   items-center
-                  gap-3
+
+                  gap-2.5
 
                   rounded-2xl
 
                   border
                   border-white/10
 
-                  bg-white/5
+                  bg-slate-900/70
 
-                  px-5
-                  py-4
+                  px-4
+                  py-2.5
 
-                  backdrop-blur-xl
+                  backdrop-blur-2xl
 
                   shadow-xl
                 `}
               >
-                <div
-                  className="
-                    flex
+                <span className="text-primary">{card.icon}</span>
 
-                    h-10
-                    w-10
-
-                    items-center
-                    justify-center
-
-                    rounded-xl
-
-                    bg-primary/20
-
-                    text-primary
-                  "
-                >
-                  {card.icon}
-                </div>
-
-                <div>
-                  <p
+                <div className="leading-tight">
+                  <h4
                     className="
                       text-sm
 
-                      text-muted
-                    "
-                  >
-                    Technology
-                  </p>
-
-                  <h4
-                    className="
                       font-semibold
 
                       text-white
@@ -533,40 +632,65 @@ export default function HeroSection() {
                   >
                     {card.title}
                   </h4>
+
+                  <p
+                    className="
+                      mt-0.5
+
+                      font-mono
+
+                      text-[10px]
+
+                      uppercase
+
+                      tracking-wide
+
+                      text-muted
+                    "
+                  >
+                    {card.subtitle}
+                  </p>
                 </div>
               </motion.div>
             ))}
 
-            {/* Decorative Ring */}
+            {/* Small Accent Dots, riding the ring's inner edge */}
 
-            <motion.div
-              animate={{
-                rotate: 360,
-              }}
-              transition={{
-                duration: 45,
-                repeat: Infinity,
-                ease: "linear",
-              }}
+            <div
               className="
                 absolute
 
-                h-[620px]
-                w-[620px]
+                left-16
+                top-10
+
+                h-2
+                w-2
 
                 rounded-full
 
-                border
+                bg-primary
+              "
+            />
 
-                border-white/5
+            <div
+              className="
+                absolute
+
+                bottom-20
+                right-10
+
+                h-2
+                w-2
+
+                rounded-full
+
+                bg-[#5EEAD4]
               "
             />
           </motion.div>
 
         </div>
-
       </Container>
-
     </section>
   );
 }

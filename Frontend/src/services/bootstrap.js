@@ -1,9 +1,15 @@
-import { getAbout } from "../api/about";
-import { getMaintenance } from "../api/maintenance";
-import { getProjects } from "../api/project";
-import { getServices } from "../api/service";
-import { getSkills } from "../api/skill";
+
+import { getConfiguration } from "../api/configuration";
 import { getStatistics } from "../api/statistic";
+import { getServices } from "../api/service";
+import { getTechnologies } from "../api/technology";
+import { getFAQs } from "../api/faqs";
+import { getMaintenance } from "../api/maintenance";
+import { getFeaturedProjects, getHomeProjects } from "../api/project";
+
+import { getAbout } from "../api/about";
+import { getSkills } from "../api/skill";
+
 import { BOOTSTRAP_STATUS } from "../config/constants";
 
 export async function bootstrapApplication() {
@@ -18,7 +24,7 @@ export async function bootstrapApplication() {
         ? maintenanceResponse.data[0]
         : maintenanceResponse.data;
 
-    if (maintenance?.is_active) {
+    if (maintenance) {
       return {
         status: "maintenance",
         maintenance,
@@ -29,28 +35,43 @@ export async function bootstrapApplication() {
     // Load Portfolio
 
     const [
-      about,
-      services,
-      projects,
-      skills,
+      configuration,
       statistics,
+      services,
+      technologies,
+      faqs,
+      featuredProjects,
+      homeProjects,
+
+      about,
+      skills,
     ] = await Promise.all([
-      getAbout(),
-      getServices(),
-      getProjects(),
-      getSkills(),
+      getConfiguration(),
       getStatistics(),
+      getServices(),
+      getTechnologies(),
+      getFAQs(),
+      getFeaturedProjects(),
+      getHomeProjects(),
+      
+      getAbout(),
+      getSkills(),
     ]);
 
     return {
       status: BOOTSTRAP_STATUS.READY,
 
       data: {
-        about: about.data,
-        services: services.data,
-        projects: projects.data,
-        skills: skills.data,
+        configuration: configuration.data,
         statistics: statistics.data,
+        services: services.data,
+        technologies: technologies.data,
+        faqs: faqs.data,
+        featuredProjects: featuredProjects.data,
+        homeProjects: homeProjects.data,
+       
+        about: about.data,
+        skills: skills.data,
       },
     };
   } catch (error) {

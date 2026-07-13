@@ -5,18 +5,10 @@ import { initialState, portfolioReducer, } from "./portfolioReducer";
 const PortfolioContext = createContext(null);
 
 export function PortfolioProvider({ children }) {
-  const [state, dispatch] = useReducer(
-    portfolioReducer,
-    initialState
-  );
+  const [state, dispatch] = useReducer( portfolioReducer, initialState);
 
   return (
-    <PortfolioContext.Provider
-      value={{
-        state,
-        dispatch,
-      }}
-    >
+    <PortfolioContext.Provider value={{ state, dispatch, }}>
       {children}
     </PortfolioContext.Provider>
   );

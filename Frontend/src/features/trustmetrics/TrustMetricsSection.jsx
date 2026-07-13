@@ -1,55 +1,19 @@
 import { motion } from "framer-motion";
-import {
-  FolderGit2,
-  BrainCircuit,
-  Layers3,
-  ShieldCheck,
-} from "lucide-react";
+import * as LucideIcons from "lucide-react";
 
 import Container from "../../components/ui/Container";
 import SectionTitle from "../../components/ui/SectionTitle";
 
-const statistics = [
-  {
-    id: 1,
-    icon: FolderGit2,
-    value: "25+",
-    title: "Projects Completed",
-    description:
-      "Production-ready web applications built using modern technologies.",
-  },
-  {
-    id: 2,
-    icon: BrainCircuit,
-    value: "100+",
-    title: "DSA Problems",
-    description:
-      "Consistent problem-solving practice focused on scalable software development.",
-  },
-  {
-    id: 3,
-    icon: Layers3,
-    value: "15+",
-    title: "Technologies",
-    description:
-      "Frontend, backend, databases, cloud tools, APIs, and development workflows.",
-  },
-  {
-    id: 4,
-    icon: ShieldCheck,
-    value: "99%",
-    title: "API Reliability",
-    description:
-      "Reliable, secure, and maintainable REST API architecture using Django.",
-  },
-];
+import { usePortfolio } from "../../context/PortfolioContext";
 
 export default function TrustMetricsSection() {
+  const { state } = usePortfolio();
+
+  const statistics = state.statistics || [];
+
   return (
-    <section
-      id="statistics"
-      className="relative py-24 lg:py-32"
-    >
+    <section id="statistics" className="relative py-24 lg:py-32">
+      
       <Container>
 
         <SectionTitle
@@ -62,15 +26,16 @@ export default function TrustMetricsSection() {
 
         <div
           className="
-            mt-16
-            grid
-            gap-6
+            mt-16 grid gap-6
             md:grid-cols-2
             xl:grid-cols-4
           "
         >
           {statistics.map((item, index) => {
-            const Icon = item.icon;
+
+            const Icon =
+              LucideIcons[item.icon] ||
+              LucideIcons.CircleHelp;
 
             return (
               <motion.div
@@ -96,29 +61,19 @@ export default function TrustMetricsSection() {
                 }}
                 className="
                   group
-
                   relative
-
                   overflow-hidden
-
                   rounded-3xl
-
                   border
                   border-white/10
-
                   bg-white/5
-
-                  md:p-7
                   px-6
                   py-7
-                  
+                  md:p-7
                   backdrop-blur-2xl
-
                   transition-all
                   duration-300
-
                   hover:border-primary/40
-
                   hover:shadow-[0_20px_60px_rgba(91,140,255,.15)]
                 "
               >
@@ -127,25 +82,16 @@ export default function TrustMetricsSection() {
                 <div
                   className="
                     absolute
-
                     right-0
                     top-0
-
                     h-28
                     w-28
-
                     rounded-full
-
                     bg-primary/10
-
                     blur-3xl
-
                     opacity-0
-
                     transition-opacity
-
                     duration-500
-
                     group-hover:opacity-100
                   "
                 />
@@ -155,27 +101,22 @@ export default function TrustMetricsSection() {
                 <div
                   className="
                     relative
-                    md:mb-7
                     mb-5
                     flex
-
                     h-12
                     w-12
-
                     items-center
                     justify-center
-
                     rounded-2xl
-
                     bg-primary/10
-
                     text-primary
+                    md:mb-7
                   "
                 >
                   <Icon size={25} />
                 </div>
 
-                {/* Number */}
+                {/* Value */}
 
                 <h3
                   className="
@@ -193,10 +134,9 @@ export default function TrustMetricsSection() {
                 <h4
                   className="
                     mt-5
-
-                    md:text-xl
                     text-lg
                     font-semibold
+                    md:text-xl
                   "
                 >
                   {item.title}
@@ -207,11 +147,10 @@ export default function TrustMetricsSection() {
                 <p
                   className="
                     mt-4
-                    md:leading-7
+                    text-muted
                     leading-6
                     md:text-base
-                    text-md
-                    text-muted
+                    md:leading-7
                   "
                 >
                   {item.description}

@@ -1,55 +1,61 @@
-import { motion } from "framer-motion";
-import {
-  ArrowUpRight,
-  ChevronUp,
-  Mail,
-  Phone,
-  MapPin,
-} from "lucide-react";
+import { ArrowUpRight, ChevronUp } from 'lucide-react';
 
-import {FaLinkedin, FaMailBulk, FaGithub} from "react-icons/fa";
+import * as FaIcons from 'react-icons/fa';
+import * as Fa6Icons from 'react-icons/fa6';
+import * as MdIcons from 'react-icons/md';
+import * as SiIcons from 'react-icons/si';
+import * as RiIcons from 'react-icons/ri';
+import * as HiIcons from 'react-icons/hi';
+import * as IoIcons from 'react-icons/io5';
 
-import { Link as ScrollLink } from "react-scroll";
+import { Link as ScrollLink } from 'react-scroll';
 
-import Container from "../../ui/Container";
-import Button from "../../ui/Button";
+import Container from '../../ui/Container';
 
-const navigation = [
-  { label: "Home", to: "home" },
-  { label: "Projects", to: "projects" },
-  { label: "Services", to: "services" },
-  { label: "About", to: "about" },
-  { label: "Contact", to: "contact" },
-];
+import { NAVIGATION } from '../../../config/navigation';
+import { usePortfolio } from '../../../context/PortfolioContext';
 
-const services = [
-  "Frontend Development",
-  "Backend Development",
-  "REST API Development",
-  "UI / UX Development",
-  "Database Design",
-  "Deployment",
-];
+const Icons = {
+  ...FaIcons,
+  ...Fa6Icons,
+  ...MdIcons,
+  ...SiIcons,
+  ...RiIcons,
+  ...HiIcons,
+  ...IoIcons,
+};
 
-const socials = [
-  {
-    icon: FaLinkedin,
-    label: "LinkedIn",
-    href: "https://linkedin.com/",
-  },
-  {
-    icon: FaGithub,
-    label: "GitHub",
-    href: "https://github.com/",
-  },
-  {
-    icon: FaMailBulk,
-    label: "Email",
-    href: "mailto:hello@example.com",
-  },
-];
+const CONTACT_LABELS = {
+  website: 'Website',
+};
 
 export default function Footer() {
+  const { state } = usePortfolio();
+
+  const services = state?.services ?? [];
+  const conf = state?.configuration ?? {};
+
+  const footerServices = services.filter(({ is_featured }) => !is_featured);
+
+  const SOCIAL_PRIORITY = ['github', 'linkedin'];
+
+  const socialLinks = Object.entries(conf?.social ?? {})
+    .map(([key, item]) => ({
+      key,
+      label: key.charAt(0).toUpperCase() + key.slice(1),
+      href: item.value,
+      Icon: Icons[item.icon],
+    }))
+    .filter(({ href }) => href);
+
+  const orderedSocialLinks = [
+    ...SOCIAL_PRIORITY.map((key) =>
+      socialLinks.find((item) => item.key === key)
+    ).filter(Boolean),
+
+    ...socialLinks.filter(({ key }) => !SOCIAL_PRIORITY.includes(key)),
+  ].slice(0, 3);
+
   return (
     <footer
       className="
@@ -61,99 +67,132 @@ export default function Footer() {
       "
     >
       <Container>
-
-   
-
-        {/* ===========================
-            MAIN GRID
-        =========================== */}
-
         <div
           className="
             grid
             gap-16
-
             py-20
-
             md:grid-cols-2
-
             xl:grid-cols-4
           "
         >
-
-          {/* Brand */}
+          {/* ======================
+              Brand
+          ====================== */}
 
           <div>
+            {conf?.website?.logo ? (
+              <img
+                src={conf.website.logo}
+                alt={conf.website.site_name}
+                className="h-12 w-auto"
+              />
+            ) : (
+              <h3 className="text-3xl font-black">
+                {conf?.website?.site_name
+                  ?.split(' ')
+                  .map((word) => word[0])
+                  .join('')}
+              </h3>
+            )}
 
-            <h3
-              className="
-                text-3xl
-
-                font-black
-              "
-            >
-              DR
-            </h3>
-
-            <p
-              className="
-                mt-6
-
-                leading-8
-
-                text-muted
-              "
-            >
-              Building premium web
-              applications using React,
-              Django, PostgreSQL,
-              REST APIs and modern
-              technologies.
+            <p className="mt-6 leading-8 text-muted">
+              {conf?.website?.short_description}
             </p>
 
             <div
               className="
                 mt-8
-
                 space-y-4
               "
             >
+              {Object.entries(conf?.contact ?? {}).map(([key, item]) => {
+                if (!item?.value) return null;
 
-              <div className="flex items-center gap-3">
-                <Mail size={18} />
-                <span className="text-muted">
-                  hello@example.com
-                </span>
-              </div>
+                const Icon = Icons[item.icon];
 
-              <div className="flex items-center gap-3">
-                <Phone size={18} />
-                <span className="text-muted">
-                  +91 XXXXX XXXXX
-                </span>
-              </div>
+                let content;
 
-              <div className="flex items-center gap-3">
-                <MapPin size={18} />
-                <span className="text-muted">
-                  India
-                </span>
-              </div>
+                switch (key) {
+                  case 'website':
+                    content = (
+                      <a
+                        href={item.value}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="
+                          text-muted
+                          transition
+                          hover:text-primary
+                          hover:underline
+                        "
+                      >
+                        {CONTACT_LABELS[key]}
+                      </a>
+                    );
+                    break;
 
+                  case 'email':
+                    content = (
+                      <a
+                        href={`mailto:${item.value}`}
+                        className="
+                          text-muted
+                          transition
+                          hover:text-primary
+                        "
+                      >
+                        {item.value}
+                      </a>
+                    );
+                    break;
+
+                  case 'mobile':
+                    content = (
+                      <a
+                        href={`tel:${item.value}`}
+                        className="
+                          text-muted
+                          transition
+                          hover:text-primary
+                        "
+                      >
+                        {item.value}
+                      </a>
+                    );
+                    break;
+
+                  default:
+                    content = <span className="text-muted">{item.value}</span>;
+                }
+
+                return (
+                  <div
+                    key={key}
+                    className="
+                      flex
+                      items-center
+                      gap-3
+                    "
+                  >
+                    {Icon && <Icon size={18} />}
+
+                    {content}
+                  </div>
+                );
+              })}
             </div>
-
           </div>
 
-          {/* Navigation */}
+          {/* ======================
+              Navigation
+          ====================== */}
 
           <div>
-
             <h4
               className="
                 mb-6
-
                 text-xl
-
                 font-semibold
               "
             >
@@ -161,9 +200,7 @@ export default function Footer() {
             </h4>
 
             <div className="space-y-4">
-
-              {navigation.map((item) => (
-
+              {NAVIGATION.map((item) => (
                 <ScrollLink
                   key={item.to}
                   to={item.to}
@@ -180,23 +217,19 @@ export default function Footer() {
                 >
                   {item.label}
                 </ScrollLink>
-
               ))}
-
             </div>
-
           </div>
 
-          {/* Services */}
+          {/* ======================
+              Services
+          ====================== */}
 
           <div>
-
             <h4
               className="
                 mb-6
-
                 text-xl
-
                 font-semibold
               "
             >
@@ -204,166 +237,100 @@ export default function Footer() {
             </h4>
 
             <div className="space-y-4">
-
-              {services.map((service) => (
-
-                <p
-                  key={service}
-                  className="text-muted"
-                >
-                  {service}
+              {footerServices.map((service) => (
+                <p key={service.id} className="text-muted">
+                  {service.title}
                 </p>
-
               ))}
-
             </div>
-
           </div>
 
-          {/* Social */}
+          {/* ======================
+              Connect
+          ====================== */}
 
           <div>
-
             <h4
               className="
                 mb-6
-
                 text-xl
-
                 font-semibold
               "
             >
               Connect
             </h4>
 
-            <div
-              className="
-                flex
-
-                flex-col
-
-                gap-4
-              "
-            >
-
-              {socials.map((item) => {
-
-                const Icon = item.icon;
-
-                return (
-
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="
+            <div className="flex flex-col gap-4">
+              {orderedSocialLinks.map(({ key, href, label, Icon }) => (
+                <a
+                  key={key}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="
                       flex
-
                       items-center
-
                       justify-between
-
                       rounded-2xl
-
                       border
-
                       border-white/10
-
                       bg-white/[0.03]
-
                       px-5
-
                       py-4
-
                       transition-all
-
                       duration-300
-
                       hover:border-primary/40
-
                       hover:bg-white/[0.05]
                     "
-                  >
-
-                    <div
-                      className="
+                >
+                  <div
+                    className="
                         flex
-
                         items-center
-
                         gap-3
                       "
-                    >
+                  >
+                    {Icon && <Icon size={20} />}
 
-                      <Icon size={20} />
+                    <span>{label}</span>
+                  </div>
 
-                      <span>{item.label}</span>
-
-                    </div>
-
-                    <ArrowUpRight size={18} />
-
-                  </a>
-
-                );
-
-              })}
-
+                  <ArrowUpRight size={18} />
+                </a>
+              ))}
             </div>
-
           </div>
-
         </div>
 
-        {/* ===========================
-            Bottom
-        =========================== */}
+        {/* ======================
+            Footer Bottom
+        ====================== */}
 
         <div
           className="
             flex
-
             flex-col
-
             items-center
-
             justify-between
-
             gap-6
-
             border-t
-
             border-white/10
-
             py-8
-
             text-sm
-
             text-muted
-
             md:flex-row
           "
         >
-
-          <p>
-            © 2026 Deepak Raikwar.
-            All Rights Reserved.
-          </p>
+          <p>{conf?.footer?.copyright_text}</p>
 
           <div
             className="
               flex
-
               items-center
-
               gap-4
             "
           >
-
-            <span>
-              Built with React · Django · Framer Motion
-            </span>
+            <span>{conf?.footer?.footer_text}</span>
 
             <ScrollLink
               to="home"
@@ -371,39 +338,24 @@ export default function Footer() {
               duration={700}
               className="
                 flex
-
                 h-12
-
                 w-12
-
                 cursor-pointer
-
                 items-center
-
                 justify-center
-
                 rounded-full
-
                 border
-
                 border-white/10
-
                 bg-white/[0.04]
-
                 transition
-
                 hover:border-primary/40
-
                 hover:bg-primary/10
               "
             >
               <ChevronUp size={18} />
             </ScrollLink>
-
           </div>
-
         </div>
-
       </Container>
     </footer>
   );
