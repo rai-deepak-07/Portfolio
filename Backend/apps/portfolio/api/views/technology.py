@@ -8,5 +8,11 @@ from apps.portfolio.api.serializers import TechnologySerializer
 class TechnologyViewSet(ReadOnlyModelViewSet):
 
     serializer_class = TechnologySerializer
-    queryset = Technology.objects.select_related("category")
     permission_classes = [AllowAny]
+
+    queryset = (
+        Technology.objects
+        .filter(is_active=True)
+        .select_related("tech_type")
+        .order_by("display_order")
+    )

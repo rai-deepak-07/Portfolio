@@ -4,13 +4,19 @@ from apps.portfolio.models import Statistic
 
 
 class StatisticSerializer(serializers.ModelSerializer):
+    """
+    Serializer for portfolio statistics.
+    """
 
     class Meta:
         model = Statistic
-        fields = "__all__"
 
-        read_only_fields = (
+        fields = (
             "id",
-            "created_at",
-            "updated_at",
+            "title",
+            "value",
+            "description",
+            "icon",
         )
+
+        read_only_fields = fields

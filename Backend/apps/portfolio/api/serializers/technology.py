@@ -5,9 +5,9 @@ from apps.portfolio.models import Technology
 
 class TechnologySerializer(serializers.ModelSerializer):
 
-    category_name = serializers.CharField(
-        source="category.name",
-        read_only=True
+    tech_type_name = serializers.CharField(
+        source="tech_type.name",
+        read_only=True,
     )
 
     class Meta:
@@ -15,13 +15,10 @@ class TechnologySerializer(serializers.ModelSerializer):
         fields = (
             "id",
             "name",
-            "category",
-            "category_name",
-            "created_at",
-            "updated_at",
-        )
-        read_only_fields = (
-            "id",
-            "created_at",
-            "updated_at",
+            "icon",
+            "color",
+            "tech_type",
+            "tech_type_name",
+            "display_order",
+            "is_active",
         )

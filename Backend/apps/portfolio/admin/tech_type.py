@@ -1,32 +1,31 @@
 from django.contrib import admin
 from unfold.admin import ModelAdmin
 
-from apps.portfolio.models import Technology
+from apps.portfolio.models import TechnologyType
 from django.db.models import Max
 
-@admin.register(Technology)
-class TechnologyAdmin(ModelAdmin):
+
+@admin.register(TechnologyType)
+class TechnologyTypeAdmin(ModelAdmin):
 
     list_display = (
         "name",
-        "tech_type",
         "display_order",
         "is_active",
         "created_at",
     )
 
     list_filter = (
-        "tech_type",
         "is_active",
     )
 
     search_fields = (
         "name",
-        "tech_type__name",
     )
 
     ordering = (
         "display_order",
+        "name",
     )
 
     readonly_fields = (
@@ -36,14 +35,11 @@ class TechnologyAdmin(ModelAdmin):
 
     fieldsets = (
         (
-            "Technology Information",
+            "Technology Type Information",
             {
                 "fields": (
-                    "tech_type",
                     "name",
-                    "icon",
-                    "color",
-                )
+                ),
             },
         ),
         (
@@ -52,7 +48,7 @@ class TechnologyAdmin(ModelAdmin):
                 "fields": (
                     "display_order",
                     "is_active",
-                )
+                ),
             },
         ),
         (
@@ -73,7 +69,7 @@ class TechnologyAdmin(ModelAdmin):
         initial = super().get_changeform_initial_data(request)
 
         last_order = (
-            Technology.objects.aggregate(
+            TechnologyType.objects.aggregate(
                 max_order=Max("display_order")
             )["max_order"]
             or 0
@@ -87,13 +83,13 @@ class TechnologyAdmin(ModelAdmin):
     # Swap display order if duplicate exists
     def save_model(self, request, obj, form, change):
         if change:
-            old_obj = Technology.objects.get(pk=obj.pk)
+            old_obj = TechnologyType.objects.get(pk=obj.pk)
             old_order = old_obj.display_order
         else:
             old_order = None
 
         duplicate = (
-            Technology.objects.filter(
+            TechnologyType.objects.filter(
                 display_order=obj.display_order
             )
             .exclude(pk=obj.pk)

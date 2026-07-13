@@ -1,28 +1,27 @@
 from django.contrib import admin
+from django.db.models import Max
 from unfold.admin import ModelAdmin
 
-from apps.portfolio.models import Technology
-from django.db.models import Max
+from apps.portfolio.models import FAQ
 
-@admin.register(Technology)
-class TechnologyAdmin(ModelAdmin):
+
+@admin.register(FAQ)
+class FAQAdmin(ModelAdmin):
 
     list_display = (
-        "name",
-        "tech_type",
+        "question",
         "display_order",
         "is_active",
         "created_at",
     )
 
     list_filter = (
-        "tech_type",
         "is_active",
     )
 
     search_fields = (
-        "name",
-        "tech_type__name",
+        "question",
+        "answer",
     )
 
     ordering = (
@@ -36,14 +35,12 @@ class TechnologyAdmin(ModelAdmin):
 
     fieldsets = (
         (
-            "Technology Information",
+            "FAQ Information",
             {
                 "fields": (
-                    "tech_type",
-                    "name",
-                    "icon",
-                    "color",
-                )
+                    "question",
+                    "answer",
+                ),
             },
         ),
         (
@@ -52,7 +49,7 @@ class TechnologyAdmin(ModelAdmin):
                 "fields": (
                     "display_order",
                     "is_active",
-                )
+                ),
             },
         ),
         (
@@ -66,39 +63,30 @@ class TechnologyAdmin(ModelAdmin):
             },
         ),
     )
-    
-    
+
     # Auto-fill next display order
     def get_changeform_initial_data(self, request):
         initial = super().get_changeform_initial_data(request)
 
-        last_order = (
-            Technology.objects.aggregate(
-                max_order=Max("display_order")
-            )["max_order"]
-            or 0
-        )
+        last_order = FAQ.objects.aggregate(
+            max_order=Max("display_order")
+        )["max_order"] or 0
 
         initial["display_order"] = last_order + 1
 
         return initial
 
-
     # Swap display order if duplicate exists
     def save_model(self, request, obj, form, change):
         if change:
-            old_obj = Technology.objects.get(pk=obj.pk)
+            old_obj = FAQ.objects.get(pk=obj.pk)
             old_order = old_obj.display_order
         else:
             old_order = None
 
-        duplicate = (
-            Technology.objects.filter(
-                display_order=obj.display_order
-            )
-            .exclude(pk=obj.pk)
-            .first()
-        )
+        duplicate = FAQ.objects.filter(
+            display_order=obj.display_order
+        ).exclude(pk=obj.pk).first()
 
         if duplicate and old_order is not None:
             duplicate.display_order = old_order

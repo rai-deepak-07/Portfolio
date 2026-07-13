@@ -9,40 +9,36 @@ class Statistic(TimeStampedModel):
 
     Examples:
     - Projects Completed
-    - Happy Clients
-    - Years of Experience
-    - Certificates
-    - Problems Solved
+    - DSA Problems
+    - Technologies
+    - API Reliability
     """
 
     title = models.CharField(
         max_length=100,
-        unique=True
+        unique=True,
+        help_text="Example: Projects Completed"
     )
 
     value = models.CharField(
         max_length=50,
-        help_text="Example: 50+, 3+, 100+"
+        help_text="Example: 25+, 100+, 99%"
+    )
+
+    description = models.TextField(
+        max_length=300,
+        help_text="Short description displayed below the title."
     )
 
     icon = models.CharField(
         max_length=100,
-        help_text="Icon class (Lucide, FontAwesome, Bootstrap Icons, etc.)"
-    )
-
-    subtitle = models.CharField(
-        max_length=200,
-        blank=True
-    )
-
-    color = models.CharField(
-        max_length=30,
-        blank=True,
-        help_text="Optional color code (e.g. #3B82F6)"
+        help_text="Lucide React icon name. Example: FolderGit2"
     )
 
     display_order = models.PositiveIntegerField(
-        default=1
+        default=1,
+        db_index=True,
+        help_text="Controls the display order on the homepage."
     )
 
     is_active = models.BooleanField(
@@ -51,13 +47,12 @@ class Statistic(TimeStampedModel):
 
     class Meta:
         db_table = "portfolio_statistics"
-        ordering = ["display_order", "title"]
+        ordering = (
+            "display_order",
+            "title",
+        )
         verbose_name = "Statistic"
         verbose_name_plural = "Statistics"
-        indexes = [
-            models.Index(fields=["display_order"]),
-            models.Index(fields=["is_active"]),
-        ]
 
     def __str__(self):
-        return self.title
+        return f"{self.display_order}. {self.title}"
