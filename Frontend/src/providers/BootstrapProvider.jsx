@@ -81,21 +81,6 @@ export default function BootstrapProvider({ children }) {
           });
 
           dispatch({
-            type: PORTFOLIO_ACTIONS.SET_ABOUT,
-            payload: result.data.about,
-          });
-
-          dispatch({
-            type: PORTFOLIO_ACTIONS.SET_PROJECTS,
-            payload: result.data.projects,
-          });
-
-          dispatch({
-            type: PORTFOLIO_ACTIONS.SET_SKILLS,
-            payload: result.data.skills,
-          });
-
-          dispatch({
             type: PORTFOLIO_ACTIONS.SET_READY,
             payload: true,
           });

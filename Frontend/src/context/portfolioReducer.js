@@ -16,10 +16,6 @@ export const initialState = {
 
   homeProjects: [],
   featuredProjects: [],
-
-
-  about: null,
-  skills: [],
 };
 
 export function portfolioReducer(state, action) {
@@ -89,26 +85,6 @@ export function portfolioReducer(state, action) {
         ...state,
         faqs: action.payload,
       };
-
-
-    case PORTFOLIO_ACTIONS.SET_ABOUT:
-      return {
-        ...state,
-        about: action.payload,
-      };
-
-    case PORTFOLIO_ACTIONS.SET_PROJECTS:
-      return {
-        ...state,
-        projects: action.payload,
-      };
-
-    case PORTFOLIO_ACTIONS.SET_SKILLS:
-      return {
-        ...state,
-        skills: action.payload,
-      };
-
 
     case PORTFOLIO_ACTIONS.RESET:
       return initialState;

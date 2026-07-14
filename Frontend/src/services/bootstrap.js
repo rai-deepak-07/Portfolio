@@ -7,9 +7,6 @@ import { getFAQs } from "../api/faqs";
 import { getMaintenance } from "../api/maintenance";
 import { getFeaturedProjects, getHomeProjects } from "../api/project";
 
-import { getAbout } from "../api/about";
-import { getSkills } from "../api/skill";
-
 import { BOOTSTRAP_STATUS } from "../config/constants";
 
 export async function bootstrapApplication() {
@@ -43,8 +40,6 @@ export async function bootstrapApplication() {
       featuredProjects,
       homeProjects,
 
-      about,
-      skills,
     ] = await Promise.all([
       getConfiguration(),
       getStatistics(),
@@ -53,9 +48,6 @@ export async function bootstrapApplication() {
       getFAQs(),
       getFeaturedProjects(),
       getHomeProjects(),
-      
-      getAbout(),
-      getSkills(),
     ]);
 
     return {
@@ -69,9 +61,6 @@ export async function bootstrapApplication() {
         faqs: faqs.data,
         featuredProjects: featuredProjects.data,
         homeProjects: homeProjects.data,
-       
-        about: about.data,
-        skills: skills.data,
       },
     };
   } catch (error) {
