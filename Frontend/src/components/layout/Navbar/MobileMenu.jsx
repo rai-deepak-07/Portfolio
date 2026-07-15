@@ -6,7 +6,6 @@ import { createPortal } from 'react-dom';
 import { NAVIGATION } from '../../../config/navigation';
 
 import Logo from './Logo';
-import NavItem from './NavItem';
 import ResumeButton from './ResumeButton';
 import HireButton from './HireButton';
 
@@ -90,9 +89,9 @@ export default function MobileMenu({ open, setOpen }) {
             </div>
 
             {/* Header */}
-            <div className="relative border-b border-white/10 px-5 py-4">
+            <div className="relative border-b border-white/10 px-4 py-3.5 sm:px-5 sm:py-4">
               <div className="mb-4 flex items-center justify-between">
-                <Logo />
+                <Logo alwaysExpanded />
 
                 <button
                   onClick={closeMenu}
@@ -257,8 +256,6 @@ export default function MobileMenu({ open, setOpen }) {
                 </motion.button>
               ))}
             </motion.div>
-
-            {/* ---------- PART 2 CONTINUES FROM HERE ---------- */}
 
             {/* Footer */}
             <div className="relative border-t border-white/10 p-4">

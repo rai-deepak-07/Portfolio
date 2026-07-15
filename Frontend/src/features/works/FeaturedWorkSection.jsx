@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -12,37 +13,24 @@ import FeaturedProjectCard from "./FeaturedProjectCard";
 import ProjectCard from "./ProjectCard";
 import ProjectSkeleton from "./ProjectSkeleton";
 import EmptyProjects from "./EmptyProjects";
+import ProjectDetailsModal from "./ProjectDetailsModal";
 
 export default function FeaturedWorkSection() {
   const navigate = useNavigate();
-
   const { state } = usePortfolio();
 
-  const {
-    loading,
-    featuredProjects = [],
-    homeProjects = [],
-  } = state;
+  // const [selectedProject, setSelectedProject] = useState(null);
+  const [selectedSlug, setSelectedSlug] = useState(null);
 
-  const featuredProject =
-    featuredProjects[0] || homeProjects[0] || null;
+  const { loading, featuredProjects = [], homeProjects = [] } = state;
 
-  const otherProjects = homeProjects.filter(
-    (project) => project.id !== featuredProject?.id
-  );
-
+  const featuredProject = featuredProjects[0] || homeProjects[0] || null;
+  const otherProjects = homeProjects.filter((p) => p.id !== featuredProject?.id);
   const totalCount = homeProjects.length;
-
-  /* ---------------------------------------
-      Loading State
-  --------------------------------------- */
 
   if (loading) {
     return (
-      <section
-        id="projects"
-        className="section-background relative py-32"
-      >
+      <section id="projects" className="section-background relative py-14 sm:py-16 md:py-20 lg:py-28">
         <Container>
           <SectionTitle
             badge="FEATURED WORK"
@@ -50,8 +38,7 @@ export default function FeaturedWorkSection() {
             highlight="That Solve Real Problems"
             description="A collection of carefully engineered products focused on performance, scalability and exceptional user experience."
           />
-
-          <div className="mt-16">
+          <div className="mt-10 sm:mt-12 lg:mt-16">
             <ProjectSkeleton />
           </div>
         </Container>
@@ -59,16 +46,9 @@ export default function FeaturedWorkSection() {
     );
   }
 
-  /* ---------------------------------------
-      Empty State
-  --------------------------------------- */
-
   if (!homeProjects.length) {
     return (
-      <section
-        id="projects"
-        className="section-background relative py-32"
-      >
+      <section id="projects" className="section-background relative py-14 sm:py-16 md:py-20 lg:py-28">
         <Container>
           <SectionTitle
             badge="FEATURED WORK"
@@ -76,8 +56,7 @@ export default function FeaturedWorkSection() {
             highlight="That Solve Real Problems"
             description="A collection of carefully engineered products focused on performance, scalability and exceptional user experience."
           />
-
-          <div className="mt-16">
+          <div className="mt-10 sm:mt-12 lg:mt-16">
             <EmptyProjects />
           </div>
         </Container>
@@ -86,10 +65,7 @@ export default function FeaturedWorkSection() {
   }
 
   return (
-    <section
-      id="projects"
-      className="section-background relative py-32"
-    >
+    <section id="projects" className="section-background relative py-14 sm:py-16 md:py-20 lg:py-28">
       <Container>
         <SectionTitle
           badge="FEATURED WORK"
@@ -99,65 +75,50 @@ export default function FeaturedWorkSection() {
         />
 
         {/* Index Rule */}
-
-        <div className="mt-16 flex items-center gap-4 border-b border-white/10 pb-4">
-          <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-primary">
+        <div className="mt-10 flex items-center gap-3 border-b border-white/10 pb-3.5 sm:mt-12 sm:gap-4 sm:pb-4 lg:mt-16">
+          <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-primary sm:text-[11px]">
             Project Index
           </span>
-
           <span className="h-px flex-1 bg-white/10" />
-
-          <span className="font-mono text-[11px] tracking-[0.2em] text-muted">
+          <span className="font-mono text-[10px] tracking-[0.2em] text-muted sm:text-[11px]">
             {String(totalCount).padStart(2, "0")} Entries
           </span>
         </div>
 
-        <div className="mt-8 space-y-6">
-
-          {/* ======================================
-                  Featured Project
-          ====================================== */}
-
+        <div className="mt-6 space-y-4 sm:mt-8 sm:space-y-6">
+          {/* Featured Project */}
           <FeaturedProjectCard
             project={featuredProject}
             totalCount={totalCount}
-            onViewDetails={(project) =>
-              navigate(`/projects/${project.slug}`)
-            }
+            onViewDetails={(slug) => setSelectedSlug(slug)}
           />
 
-          {/* ======================================
-                  Other Projects
-          ====================================== */}
-
-          <div className="grid gap-6 md:grid-cols-3">
-
-              {otherProjects.map((project, index) => (
-              <ProjectCard
-                key={project.id}
-                project={project}
-                index={index + 2}
-                totalCount={totalCount}
-              />
+          {/* Sub-projects Grid — items-stretch handles tablet/laptop rows */}
+          <div className="grid gap-4 sm:grid-cols-2 sm:gap-6 md:grid-cols-3 items-stretch">
+            {otherProjects.map((project, index) => (
+              <div key={project.id} className="flex flex-col h-full">
+                <ProjectCard
+                  project={project}
+                  index={index + 2}
+                  totalCount={totalCount}
+                  onClick={setSelectedSlug}
+                />
+              </div>
             ))}
           </div>
         </div>
 
-        {/* ======================================
-                Bottom CTA
-        ====================================== */}
-
+        {/* Bottom CTA */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mt-16 flex items-center justify-center gap-6 border-t border-white/10 pt-10"
+          className="mt-10 flex flex-col items-center justify-center gap-4 border-t border-white/10 pt-8 sm:mt-16 sm:flex-row sm:gap-6 sm:pt-10"
         >
           <span className="font-mono text-xs uppercase tracking-[0.2em] text-muted">
             End of index
           </span>
-
           <Button
             size="lg"
             onClick={() => navigate("/projects")}
@@ -168,6 +129,11 @@ export default function FeaturedWorkSection() {
         </motion.div>
 
       </Container>
+
+      <ProjectDetailsModal
+        slug={selectedSlug}
+        onClose={() => setSelectedSlug(null)}
+      />
     </section>
   );
 }

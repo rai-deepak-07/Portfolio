@@ -13,10 +13,10 @@ const FeaturedSkeleton = () => {
       <span className="absolute inset-y-0 left-0 w-[2px] bg-white/10" />
 
       {/* Image */}
-      <div className="min-h-[240px] bg-white/[0.03] lg:min-h-[320px] animate-pulse" />
+      <div className="min-h-[220px] bg-white/[0.03] lg:min-h-[260px] xl:min-h-[320px] animate-pulse" />
 
       {/* Content */}
-      <div className="flex flex-col justify-between p-6 lg:p-8">
+      <div className="flex flex-col justify-between p-5 lg:p-6 xl:p-8">
 
         <div>
 

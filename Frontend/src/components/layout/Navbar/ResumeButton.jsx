@@ -18,10 +18,10 @@ export default function ResumeButton({ loading = false, className }) {
         >
           <Button
             variant="secondary"
-            size="md"
+            size="sm"
             loading={loading}
-            leftIcon={<Download size={18} />}
-            className={cn(className)}
+            leftIcon={<Download size={16} />}
+            className={cn("lg:h-11 lg:px-6", className)}
           >
             Resume
           </Button>
@@ -29,10 +29,10 @@ export default function ResumeButton({ loading = false, className }) {
       ) : (
         <Button
           variant="secondary"
-          size="md"
+          size="sm"
           loading={loading}
-          leftIcon={<Download size={18} />}
-          className={cn(className)}
+          leftIcon={<Download size={16} />}
+          className={cn("lg:h-11 lg:px-6", className)}
           disabled
         >
           Resume

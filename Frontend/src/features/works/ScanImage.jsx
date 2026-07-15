@@ -1,21 +1,12 @@
 import React, { useState } from "react";
 
-const ScanImage = ({
-  src,
-  alt,
-  sweepDistance,
-  children,
-}) => {
+const ScanImage = ({ src, alt, children }) => {
   const [imageError, setImageError] = useState(false);
 
   return (
     <div className="relative h-full w-full overflow-hidden bg-white/[0.02]">
       <img
-        src={
-          imageError || !src
-            ? "/images/project-placeholder.png"
-            : src
-        }
+        src={imageError || !src ? "/images/project-placeholder.png" : src}
         alt={alt}
         loading="lazy"
         onError={() => setImageError(true)}
@@ -24,12 +15,8 @@ const ScanImage = ({
 
       <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
 
-      <div
-        className="pointer-events-none absolute inset-x-0 top-0 h-px -translate-y-2 bg-primary opacity-0 shadow-[0_0_12px_1px_rgba(91,140,255,0.6)] transition-all duration-[900ms] ease-out group-hover:translate-y-[var(--sweep)] group-hover:opacity-100"
-        style={{
-          "--sweep": `${sweepDistance}px`,
-        }}
-      />
+      {/* Dynamic, responsive laser scan layer */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-primary opacity-0 shadow-[0_0_12px_1px_rgba(91,140,255,0.6)] transition-all duration-[900ms] ease-out group-hover:translate-y-[450px] group-hover:opacity-100" />
 
       {children}
     </div>

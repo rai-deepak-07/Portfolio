@@ -10,11 +10,7 @@ import ProjectStatus from "./ProjectStatus";
 import ProjectTechStack from "./ProjectTechStack";
 import ScanImage from "./ScanImage";
 
-const FeaturedProjectCard = ({
-  project,
-  totalCount,
-  onViewDetails,
-}) => {
+const FeaturedProjectCard = ({ project, totalCount, onViewDetails }) => {
   if (!project) return null;
 
   return (
@@ -23,68 +19,51 @@ const FeaturedProjectCard = ({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.6 }}
-      className="group relative grid overflow-hidden border border-white/10 bg-white/[0.02] transition-colors duration-500 hover:border-primary/40 lg:grid-cols-2"
+      className="group relative grid grid-cols-1 md:grid-cols-12 lg:grid-cols-12 overflow-hidden border border-white/10 bg-white/[0.02] transition-colors duration-500 hover:border-primary/40"
     >
-      {/* left accent bar */}
+      {/* Left accent bar from original design */}
       <span className="absolute inset-y-0 left-0 z-10 w-[2px] bg-white/10 transition-colors duration-500 group-hover:bg-primary" />
 
-      {/* Image */}
-      <div className="relative min-h-[240px] lg:min-h-[320px]">
-        <ScanImage
-          src={project.thumbnail}
-          alt={project.title}
-          sweepDistance={460}
-        >
-          <span className="absolute left-8 top-8 font-mono text-[12px] uppercase tracking-[0.3em] text-primary">
+      {/* Responsive Image Split View */}
+      <div className="relative min-h-[180px] sm:min-h-[220px] md:col-span-5 md:min-h-[260px] lg:col-span-5 w-full overflow-hidden">
+        <ScanImage src={project.thumbnail} alt={project.title}>
+          <span className="absolute left-5 top-5 font-mono text-[11px] uppercase tracking-[0.3em] text-primary sm:left-8 sm:top-8 sm:text-[12px]">
             Featured
           </span>
         </ScanImage>
       </div>
 
-      {/* Content */}
-      <div className="flex flex-col justify-between p-6 lg:p-8">
-
+      {/* Content Block */}
+      <div className="flex flex-col justify-between p-4 sm:p-5 lg:p-6 xl:p-8 md:col-span-7 lg:col-span-7">
         <div>
-
           <div className="flex items-center justify-between">
-            <IndexTag
-              index={1}
-              totalCount={totalCount}
-            />
-
-            <ProjectStatus
-              status={project.status_display}
-            />
+            <IndexTag index={1} totalCount={totalCount} />
+            <ProjectStatus status={project.status_display} />
           </div>
 
-          <p className="mt-4 font-mono text-xs uppercase tracking-[0.25em] text-primary">
+          <p className="mt-3 font-mono text-[10px] font-semibold uppercase tracking-[0.25em] text-primary sm:mt-4">
             {project.category?.name}
           </p>
 
-          <h3 className="mt-2 text-2xl font-bold leading-tight lg:text-4xl">
+          <h3 className="mt-2 text-xl font-bold leading-tight sm:text-2xl lg:text-3xl xl:text-4xl text-white">
             {project.title}
           </h3>
 
-          <p className="mt-3 max-w-lg text-sm leading-6 text-muted md:text-base md:leading-7">
+          <p className="mt-2.5 text-sm leading-6 text-muted sm:mt-3 md:text-base md:leading-7 max-w-xl">
             {project.short_description}
           </p>
 
-          <div className="mt-5 border-t border-white/10 pt-5 md:mt-8">
-            <ProjectTechStack
-              technologies={project.technologies}
-            />
+          <div className="mt-4 border-t border-white/10 pt-4 sm:mt-5 sm:pt-5 md:mt-8">
+            <ProjectTechStack technologies={project.technologies} />
           </div>
-
         </div>
 
-        <div className="mt-7 flex flex-wrap items-center gap-3 md:mt-10 md:gap-4">
-
+        {/* Actions Tray */}
+        <div className="mt-5 flex flex-wrap items-center gap-2.5 sm:mt-7 sm:gap-3 md:mt-10 md:gap-4">
           {project.live_url && (
             <Button
               rightIcon={<ExternalLink size={18} />}
-              onClick={() =>
-                window.open(project.live_url, "_blank")
-              }
+              onClick={() => window.open(project.live_url, "_blank")}
             >
               Live Demo
             </Button>
@@ -94,9 +73,7 @@ const FeaturedProjectCard = ({
             <Button
               variant="secondary"
               leftIcon={<FaGithub size={18} />}
-              onClick={() =>
-                window.open(project.github_url, "_blank")
-              }
+              onClick={() => window.open(project.github_url, "_blank")}
             >
               Source Code
             </Button>
@@ -104,14 +81,12 @@ const FeaturedProjectCard = ({
 
           <motion.button
             whileHover={{ x: 5 }}
-            onClick={() => onViewDetails?.(project)}
-            className="ml-auto flex items-center gap-2 font-semibold text-primary"
+            onClick={() => onViewDetails?.(project.slug)}
+            className="ml-auto flex items-center gap-2 font-semibold text-primary cursor-pointer"
           >
             View Details
-
             <ArrowUpRight size={20} />
           </motion.button>
-
         </div>
 
       </div>

@@ -79,11 +79,16 @@ export default function NavItem({
         flex
         cursor-pointer
         items-center
-        gap-2
+        gap-1.5
         rounded-full
-        px-4
-        py-2
-        text-sm
+        px-3
+        py-1.5
+        text-[13px]
+        md:gap-2
+        md:px-3.5
+        md:py-2
+        md:text-sm
+        lg:px-4
         font-medium
         transition-all
         duration-300
@@ -115,11 +120,13 @@ export default function NavItem({
         className={cn(
           `
             relative
+            hidden
             font-mono
             text-[10px]
             tracking-[0.22em]
             transition-colors
             duration-300
+            lg:inline
           `,
           active
             ? "text-primary"
@@ -129,7 +136,7 @@ export default function NavItem({
         {String(index).padStart(2, "0")}
       </span>
 
-      <span className="relative">
+      <span className="relative whitespace-nowrap">
         {label}
       </span>
 

@@ -41,7 +41,7 @@ export default function SectionTitle({
         duration: 0.6,
       }}
       className={cn(
-        "flex flex-col gap-5 mb-16",
+        "flex flex-col gap-3 mb-10 sm:gap-4 sm:mb-12 lg:mb-16",
 
         alignments[align],
 
@@ -57,7 +57,8 @@ export default function SectionTitle({
       <h2
         className={cn(
           `
-          text-4xl
+          text-3xl
+          sm:text-4xl
           md:text-5xl
           lg:text-6xl
 
@@ -99,10 +100,13 @@ export default function SectionTitle({
             `
             max-w-3xl
 
-            text-base
+            text-sm
+            sm:text-base
             md:text-lg
 
-            leading-8
+            leading-6
+            sm:leading-7
+            md:leading-8
 
             text-muted
             `,

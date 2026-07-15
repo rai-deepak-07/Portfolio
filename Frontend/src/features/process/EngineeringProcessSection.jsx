@@ -71,8 +71,8 @@ export default function EngineeringProcessSection() {
         />
 
         {/* Constrain + scale the orbital timeline so it fills the section instead of floating in empty space */}
-        <div className="relative w-full flex items-center justify-center mt-4">
-          <div className="w-full lg:mt-12 xl:mt-25 max-w-5xl aspect-[16/10] scale-115 lg:scale-125 xl:scale-[1.4] transition-transform duration-300 origin-center">
+        <div className="relative w-full flex items-center justify-center mt-2 sm:mt-4">
+          <div className="w-full lg:mt-12 xl:mt-25 max-w-5xl aspect-[4/5] sm:aspect-[16/10] scale-100 lg:scale-125 xl:scale-[1.4] transition-transform duration-300 origin-center">
             <RadialOrbitalTimeline timelineData={timelineData} />
           </div>
         </div>

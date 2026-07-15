@@ -8,11 +8,11 @@ export default function HireButton({
 }) {
   return (
     <Button
-      size="md"
-      rightIcon={<ArrowUpRight size={18} />}
+      size="sm"
+      rightIcon={<ArrowUpRight size={16} />}
       onClick={onClick}
       className={cn(
-        "transition-all duration-300 hover:scale-105",
+        "transition-all duration-300 hover:scale-105 md:h-10 md:px-5 lg:h-11 lg:px-6",
         className
       )}
     >

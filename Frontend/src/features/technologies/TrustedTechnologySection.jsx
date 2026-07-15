@@ -34,42 +34,62 @@ function MarqueeRow({ items, reverse = false, speed = 35 }) {
               className="
                 group
                 flex
-                h-20
-                min-w-[220px]
+                h-16
+                min-w-[170px]
                 items-center
-                gap-5
+                gap-3
                 rounded-2xl
                 border
                 border-white/10
                 bg-white/[0.04]
-                px-6
+                px-4
                 backdrop-blur-xl
                 transition-all
                 duration-300
                 hover:border-primary/40
                 hover:bg-white/[0.08]
                 hover:shadow-[0_20px_60px_rgba(80,120,255,.18)]
+
+                sm:h-20
+                sm:min-w-[220px]
+                sm:gap-5
+                sm:px-6
               "
             >
               {Icon && (
                 <Icon
-                  size={34}
+                  size={26}
                   color={item.color}
                   className="
                     transition-transform
                     duration-300
                     group-hover:scale-110
+                    sm:hidden
+                  "
+                />
+              )}
+              {Icon && (
+                <Icon
+                  size={34}
+                  color={item.color}
+                  className="
+                    hidden
+                    transition-transform
+                    duration-300
+                    group-hover:scale-110
+                    sm:block
                   "
                 />
               )}
 
               <span
                 className="
-                  text-base
+                  text-sm
                   font-medium
                   text-muted
                   transition
                   group-hover:text-white
+                  sm:text-base
                 "
               >
                 {item.name}
@@ -94,7 +114,7 @@ export default function TrustedTechnologySection() {
   const row2 = technologies.slice(middle);
 
   return (
-    <section id="technologies" className="relative overflow-hidden py-32">
+    <section id="technologies" className="relative overflow-hidden py-14 sm:py-16 md:py-20 lg:py-28">
       {/* Background Glow */}
       <div
         className="
@@ -131,7 +151,7 @@ export default function TrustedTechnologySection() {
           description="From intuitive frontend experiences to scalable backend systems, every product is built using trusted technologies chosen for performance, security, and long-term maintainability."
         />
 
-        <div className="mt-20 space-y-8">
+        <div className="mt-10 space-y-5 sm:mt-14 sm:space-y-6 lg:mt-20 lg:space-y-8">
           <MarqueeRow items={row1} speed={30} />
 
           <MarqueeRow items={row2} reverse speed={35} />
@@ -154,12 +174,18 @@ export default function TrustedTechnologySection() {
           }}
           className="
             mx-auto
-            mt-16
+            mt-10
             max-w-3xl
             text-center
-            text-lg
-            leading-8
+            text-sm
+            leading-6
             text-muted
+            sm:mt-12
+            sm:text-base
+            sm:leading-7
+            lg:mt-16
+            lg:text-lg
+            lg:leading-8
           "
         >
           Every technology in this ecosystem is selected to deliver scalable

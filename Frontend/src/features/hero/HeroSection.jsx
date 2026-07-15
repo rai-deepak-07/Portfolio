@@ -32,25 +32,25 @@ const floatingCards = [
     title: "React",
     subtitle: "Frontend",
     icon: <Code2 size={16} />,
-    position: "top-8 left-0",
+    position: "top-2 left-0 sm:top-6 lg:top-8",
   },
   {
     title: "Django",
     subtitle: "Backend",
     icon: <Database size={16} />,
-    position: "top-28 right-0",
+    position: "top-12 right-0 sm:top-20 lg:top-28",
   },
   {
     title: "REST API",
     subtitle: "Architecture",
     icon: <Globe size={16} />,
-    position: "bottom-12 left-5",
+    position: "bottom-6 left-1 sm:bottom-10 sm:left-3 lg:bottom-12 lg:left-5",
   },
   {
     title: "PostgreSQL",
     subtitle: "Database",
     icon: <Layers3 size={16} />,
-    position: "bottom-24 right-2",
+    position: "bottom-10 right-0 sm:bottom-16 sm:right-1 lg:bottom-24 lg:right-2",
   },
 ];
 
@@ -88,8 +88,11 @@ export default function HeroSection() {
         items-center
         overflow-hidden
 
-        pt-28
-        pb-16
+        pt-24
+        pb-12
+
+        sm:pt-28
+        sm:pb-16
 
         lg:min-h-screen
         lg:pt-30
@@ -114,14 +117,22 @@ export default function HeroSection() {
             -left-32
             -top-20
 
-            h-[420px]
-            w-[420px]
+            h-[260px]
+            w-[260px]
 
             rounded-full
 
             bg-primary/20
 
-            blur-[150px]
+            blur-[110px]
+
+            sm:h-[340px]
+            sm:w-[340px]
+            sm:blur-[130px]
+
+            lg:h-[420px]
+            lg:w-[420px]
+            lg:blur-[150px]
           "
         />
 
@@ -131,14 +142,22 @@ export default function HeroSection() {
             -right-24
             bottom-0
 
-            h-[460px]
-            w-[460px]
+            h-[280px]
+            w-[280px]
 
             rounded-full
 
             bg-secondary/20
 
-            blur-[170px]
+            blur-[120px]
+
+            sm:h-[360px]
+            sm:w-[360px]
+            sm:blur-[150px]
+
+            lg:h-[460px]
+            lg:w-[460px]
+            lg:blur-[170px]
           "
         />
 
@@ -200,20 +219,24 @@ export default function HeroSection() {
               animate="visible"
               variants={fadeUp}
               className="
-                mt-7
+                mt-6
 
                 max-w-2xl
 
-                text-[2.4rem]
+                text-[2.1rem]
                 font-black
 
-                leading-[1]
+                leading-[1.05]
 
                 tracking-[-0.03em]
 
+                sm:mt-7
                 sm:text-[3.3rem]
+                sm:leading-[1]
 
-                lg:text-[3.6rem]
+                lg:text-[3.2rem]
+
+                xl:text-[3.6rem]
               "
             >
               Software Engineer
@@ -246,15 +269,19 @@ export default function HeroSection() {
               animate="visible"
               variants={fadeUp}
               className="
-                mt-7
-                text-justify
+                mt-5
+                text-left
                 max-w-xl
 
-                text-[15px]
+                text-sm
 
-                leading-7
+                leading-6
 
                 text-muted
+
+                sm:mt-7
+                sm:text-[15px]
+                sm:leading-7
 
                 md:text-[17px]
               "
@@ -277,12 +304,15 @@ export default function HeroSection() {
               animate="visible"
               variants={fadeUp}
               className="
-                mt-8
+                mt-6
 
                 flex
                 flex-wrap
 
-                gap-4
+                gap-3
+
+                sm:mt-8
+                sm:gap-4
               "
             >
               <Button
@@ -332,7 +362,7 @@ export default function HeroSection() {
               initial="hidden"
               animate="visible"
               variants={fadeUp}
-              className="mt-10"
+              className="mt-8 sm:mt-10"
             >
               <p
                 className="
@@ -397,7 +427,9 @@ export default function HeroSection() {
               items-center
               justify-center
 
-              mt-12
+              mt-8
+
+              sm:mt-12
 
               lg:mt-0
             "
@@ -408,14 +440,22 @@ export default function HeroSection() {
               className="
                 absolute
 
-                h-[440px]
-                w-[440px]
+                h-[260px]
+                w-[260px]
 
                 rounded-full
 
                 bg-primary/15
 
-                blur-[110px]
+                blur-[70px]
+
+                sm:h-[340px]
+                sm:w-[340px]
+                sm:blur-[90px]
+
+                lg:h-[440px]
+                lg:w-[440px]
+                lg:blur-[110px]
               "
             />
 
@@ -423,17 +463,29 @@ export default function HeroSection() {
               className="
                 absolute
 
-                h-[220px]
-                w-[220px]
+                h-[130px]
+                w-[130px]
 
-                translate-x-24
-                translate-y-24
+                translate-x-14
+                translate-y-14
 
                 rounded-full
 
                 bg-[#5EEAD4]/10
 
-                blur-[90px]
+                blur-[55px]
+
+                sm:h-[170px]
+                sm:w-[170px]
+                sm:translate-x-16
+                sm:translate-y-16
+                sm:blur-[70px]
+
+                lg:h-[220px]
+                lg:w-[220px]
+                lg:translate-x-24
+                lg:translate-y-24
+                lg:blur-[90px]
               "
             />
 
@@ -443,8 +495,8 @@ export default function HeroSection() {
               className="
                 absolute
 
-                h-[480px]
-                w-[480px]
+                h-[280px]
+                w-[280px]
 
                 rounded-full
 
@@ -453,7 +505,15 @@ export default function HeroSection() {
                 opacity-[0.12]
 
                 [background-image:radial-gradient(currentColor_1px,transparent_1px)]
-                [background-size:18px_18px]
+                [background-size:14px_14px]
+
+                sm:h-[360px]
+                sm:w-[360px]
+                sm:[background-size:16px_16px]
+
+                lg:h-[480px]
+                lg:w-[480px]
+                lg:[background-size:18px_18px]
               "
             />
 
@@ -467,7 +527,7 @@ export default function HeroSection() {
                 duration: 40,
                 ease: "linear",
               }}
-              className="absolute h-[560px] w-[560px]"
+              className="absolute h-[300px] w-[300px] sm:h-[420px] sm:w-[420px] lg:h-[560px] lg:w-[560px]"
             >
               <path
                 id={orbitPathId}
@@ -493,12 +553,12 @@ export default function HeroSection() {
               className="
                 absolute
 
-                h-[340px]
-                w-[300px]
+                h-[190px]
+                w-[165px]
 
                 -rotate-6
 
-                rounded-[30px]
+                rounded-[20px]
 
                 border
                 border-white/10
@@ -506,6 +566,14 @@ export default function HeroSection() {
                 bg-white/[0.02]
 
                 backdrop-blur-xl
+
+                sm:h-[260px]
+                sm:w-[230px]
+                sm:rounded-[26px]
+
+                lg:h-[340px]
+                lg:w-[300px]
+                lg:rounded-[30px]
               "
             />
 
@@ -527,18 +595,25 @@ export default function HeroSection() {
 
                 overflow-hidden
 
-                rounded-[34px]
+                rounded-[22px]
 
                 border
                 border-white/10
 
                 bg-white/[0.04]
 
-                p-5
+                p-3
 
                 backdrop-blur-2xl
 
-                shadow-[0_35px_90px_rgba(0,0,0,.35)]
+                shadow-[0_20px_60px_rgba(0,0,0,.35)]
+
+                sm:rounded-[28px]
+                sm:p-4
+
+                lg:rounded-[34px]
+                lg:p-5
+                lg:shadow-[0_35px_90px_rgba(0,0,0,.35)]
               "
             >
               <img
@@ -547,13 +622,19 @@ export default function HeroSection() {
                 className="
                   w-full
 
-                  max-w-[420px]
+                  max-w-[210px]
 
-                  rounded-[28px]
+                  rounded-[18px]
 
                   object-cover
 
-                  lg:max-w-[460px]
+                  sm:max-w-[320px]
+                  sm:rounded-[24px]
+
+                  lg:max-w-[420px]
+                  lg:rounded-[28px]
+
+                  xl:max-w-[460px]
                 "
               />
 
@@ -601,33 +682,40 @@ export default function HeroSection() {
 
                   items-center
 
-                  gap-2.5
+                  gap-1.5
 
-                  rounded-2xl
+                  rounded-xl
 
                   border
                   border-white/10
 
                   bg-slate-900/70
 
-                  px-4
-                  py-2.5
+                  px-2.5
+                  py-1.5
 
                   backdrop-blur-2xl
 
                   shadow-xl
+
+                  sm:gap-2.5
+                  sm:rounded-2xl
+                  sm:px-4
+                  sm:py-2.5
                 `}
               >
-                <span className="text-primary">{card.icon}</span>
+                <span className="text-primary [&>svg]:h-3 [&>svg]:w-3 sm:[&>svg]:h-4 sm:[&>svg]:w-4">{card.icon}</span>
 
                 <div className="leading-tight">
                   <h4
                     className="
-                      text-sm
+                      text-[11px]
 
                       font-semibold
 
                       text-white
+
+                      sm:text-sm
                     "
                   >
                     {card.title}
@@ -639,13 +727,15 @@ export default function HeroSection() {
 
                       font-mono
 
-                      text-[10px]
+                      text-[8px]
 
                       uppercase
 
                       tracking-wide
 
                       text-muted
+
+                      sm:text-[10px]
                     "
                   >
                     {card.subtitle}
@@ -660,15 +750,20 @@ export default function HeroSection() {
               className="
                 absolute
 
-                left-16
-                top-10
+                left-8
+                top-5
 
-                h-2
-                w-2
+                h-1.5
+                w-1.5
 
                 rounded-full
 
                 bg-primary
+
+                sm:left-16
+                sm:top-10
+                sm:h-2
+                sm:w-2
               "
             />
 
@@ -676,15 +771,20 @@ export default function HeroSection() {
               className="
                 absolute
 
-                bottom-20
-                right-10
+                bottom-10
+                right-5
 
-                h-2
-                w-2
+                h-1.5
+                w-1.5
 
                 rounded-full
 
                 bg-[#5EEAD4]
+
+                sm:bottom-20
+                sm:right-10
+                sm:h-2
+                sm:w-2
               "
             />
           </motion.div>

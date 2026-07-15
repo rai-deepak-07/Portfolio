@@ -9,7 +9,7 @@ const Card = forwardRef(
       className,
       hover = true,
       glass = true,
-      padding = "p-6",
+      padding = "p-4 sm:p-5 md:p-6",
       ...props
     },
     ref

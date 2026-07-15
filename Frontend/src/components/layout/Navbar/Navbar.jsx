@@ -9,7 +9,7 @@ import MobileMenu from './MobileMenu';
 import { NAVIGATION } from '../../../config/navigation';
 
 const NAV_WIDTH = 1220;
-const NAV_WIDTH_SCROLLED = 800;
+const NAV_WIDTH_SCROLLED = 880;
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -26,41 +26,63 @@ export default function Navbar() {
     damping: 30,
   });
 
+  // Show / hide on scroll direction + the "scrolled" pill state
   useEffect(() => {
     let previous = window.scrollY;
-
-    const sections = NAVIGATION.map((item) => document.getElementById(item.to));
 
     const onScroll = () => {
       const current = window.scrollY;
 
       setScrolled(current > 20);
-
-      if (current < previous || current < 80) {
-        setVisible(true);
-      } else {
-        setVisible(false);
-      }
+      setVisible(current < previous || current < 80);
 
       previous = current;
-
-      sections.forEach((section) => {
-        if (!section) return;
-
-        const top = section.offsetTop - 120;
-        const bottom = top + section.offsetHeight;
-
-        if (current >= top && current < bottom) {
-          setActiveSection(section.id);
-        }
-      });
     };
 
     onScroll();
 
-    window.addEventListener('scroll', onScroll);
+    window.addEventListener('scroll', onScroll, { passive: true });
 
     return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  // Active-section detection via IntersectionObserver — reacts correctly
+  // even after async data changes section heights, unlike a one-time
+  // offsetTop calculation.
+  useEffect(() => {
+    const sections = NAVIGATION.map((item) => document.getElementById(item.to)).filter(Boolean);
+
+    if (!sections.length) return;
+
+    const visibleRatios = new Map();
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          visibleRatios.set(entry.target.id, entry.intersectionRatio);
+        });
+
+        let topId = null;
+        let topRatio = 0;
+
+        visibleRatios.forEach((ratio, id) => {
+          if (ratio > topRatio) {
+            topRatio = ratio;
+            topId = id;
+          }
+        });
+
+        if (topId) setActiveSection(topId);
+      },
+      {
+        rootMargin: '-110px 0px -55% 0px',
+        threshold: [0, 0.1, 0.25, 0.5, 0.75, 1],
+      }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+
+    return () => observer.disconnect();
   }, []);
 
   // Prevent page scrolling while drawer is open
@@ -110,7 +132,8 @@ export default function Navbar() {
             flex w-full items-center justify-between
             rounded-full
             border
-            py-2.5
+            py-2
+            sm:py-2.5
             transition-all
             duration-500
 
@@ -123,18 +146,20 @@ export default function Navbar() {
           {/* Logo */}
           <Logo compact={scrolled} />
 
-          {/* Desktop Menu */}
-          <DesktopMenu activeSection={activeSection} scrolled = {scrolled} />
+          {/* Desktop / Tablet Menu */}
+          <DesktopMenu activeSection={activeSection} scrolled={scrolled} />
 
-          {/* Mobile Hamburger */}
+          {/* Mobile Hamburger — only below the tablet nav breakpoint */}
           <button
             type="button"
             onClick={() => setMobileOpen(true)}
             aria-label="Open Menu"
             className="
               flex
-              h-10
-              w-10
+              h-9
+              w-9
+              sm:h-10
+              sm:w-10
               items-center
               justify-center
               rounded-full
@@ -145,10 +170,10 @@ export default function Navbar() {
               duration-300
               hover:border-primary/40
               hover:bg-white/[0.05]
-              lg:hidden
+              md:hidden
             "
           >
-            <Menu size={20} />
+            <Menu size={19} />
           </button>
         </motion.header>
       </motion.div>

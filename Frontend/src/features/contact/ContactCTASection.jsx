@@ -11,7 +11,7 @@ export default function ContactCTASection() {
   const resumeDownloadUrl = state?.configuration?.website?.resume;
 
   return (
-    <section id="contact" className="relative overflow-hidden py-20 md:py-24">
+    <section id="contact" className="relative overflow-hidden py-14 sm:py-16 md:py-20">
       {/* Background Grid */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.03)_1px,transparent_1px)] bg-[size:64px_64px] opacity-5" />
 
@@ -35,7 +35,7 @@ export default function ContactCTASection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="relative mx-auto mt-12 max-w-5xl overflow-hidden rounded-[32px] border border-white/10 bg-white/[0.05] px-6 py-12 backdrop-blur-2xl md:px-14 md:py-16"
+          className="relative mx-auto mt-10 max-w-5xl overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.05] px-5 py-9 backdrop-blur-2xl sm:mt-12 sm:rounded-[32px] sm:px-8 sm:py-11 md:px-14 md:py-16"
         >
           {/* Glow */}
           <div className="absolute left-1/2 top-0 h-72 w-72 -translate-x-1/2 rounded-full bg-primary/20 blur-[130px]" />

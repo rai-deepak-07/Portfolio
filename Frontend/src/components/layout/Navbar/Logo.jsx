@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { cn } from '../../../utils/cn';
 
-export default function Logo({ compact = false }) {
+export default function Logo({ compact = false, alwaysExpanded = false }) {
   return (
     <Link
       to="/"
@@ -10,10 +10,11 @@ export default function Logo({ compact = false }) {
     >
       <div
         className="
-          flex h-10 w-10 shrink-0 items-center justify-center
+          flex h-9 w-9 shrink-0 items-center justify-center
           rounded-full border border-white/15
           font-mono text-sm font-semibold text-white/80
           transition-colors duration-300
+          sm:h-10 sm:w-10
           group-hover:border-primary group-hover:text-primary
         "
       >
@@ -22,8 +23,9 @@ export default function Logo({ compact = false }) {
 
       <div
         className={cn(
-          'hidden flex-col leading-none sm:flex',
-          compact && 'sm:hidden'
+          'hidden flex-col leading-none',
+          alwaysExpanded ? 'flex' : 'lg:flex',
+          !alwaysExpanded && compact && 'lg:hidden'
         )}
       >
         <span className="text-base font-bold tracking-tight text-white">

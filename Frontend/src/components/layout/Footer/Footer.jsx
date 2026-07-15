@@ -70,9 +70,13 @@ export default function Footer() {
         <div
           className="
             grid
-            gap-16
-            py-20
+            gap-10
+            py-12
+            sm:gap-12
+            sm:py-16
             md:grid-cols-2
+            lg:gap-14
+            lg:py-20
             xl:grid-cols-4
           "
         >
@@ -88,7 +92,7 @@ export default function Footer() {
                 className="h-12 w-auto"
               />
             ) : (
-              <h3 className="text-3xl font-black">
+              <h3 className="text-2xl font-black sm:text-3xl">
                 {conf?.website?.site_name
                   ?.split(' ')
                   .map((word) => word[0])
@@ -96,14 +100,16 @@ export default function Footer() {
               </h3>
             )}
 
-            <p className="mt-6 leading-8 text-muted">
+            <p className="mt-4 leading-7 text-sm text-muted sm:mt-6 sm:leading-8 sm:text-base">
               {conf?.website?.short_description}
             </p>
 
             <div
               className="
-                mt-8
-                space-y-4
+                mt-6
+                space-y-3.5
+                sm:mt-8
+                sm:space-y-4
               "
             >
               {Object.entries(conf?.contact ?? {}).map(([key, item]) => {
@@ -191,15 +197,17 @@ export default function Footer() {
           <div>
             <h4
               className="
-                mb-6
-                text-xl
+                mb-4
+                text-lg
                 font-semibold
+                sm:mb-6
+                sm:text-xl
               "
             >
               Navigation
             </h4>
 
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               {NAVIGATION.map((item) => (
                 <ScrollLink
                   key={item.to}
@@ -210,9 +218,11 @@ export default function Footer() {
                   className="
                     block
                     cursor-pointer
+                    text-sm
                     text-muted
                     transition
                     hover:text-primary
+                    sm:text-base
                   "
                 >
                   {item.label}
@@ -228,17 +238,19 @@ export default function Footer() {
           <div>
             <h4
               className="
-                mb-6
-                text-xl
+                mb-4
+                text-lg
                 font-semibold
+                sm:mb-6
+                sm:text-xl
               "
             >
               Services
             </h4>
 
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               {footerServices.map((service) => (
-                <p key={service.id} className="text-muted">
+                <p key={service.id} className="text-sm text-muted sm:text-base">
                   {service.title}
                 </p>
               ))}
@@ -252,15 +264,17 @@ export default function Footer() {
           <div>
             <h4
               className="
-                mb-6
-                text-xl
+                mb-4
+                text-lg
                 font-semibold
+                sm:mb-6
+                sm:text-xl
               "
             >
               Connect
             </h4>
 
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-3 sm:gap-4">
               {orderedSocialLinks.map(({ key, href, label, Icon }) => (
                 <a
                   key={key}
@@ -275,12 +289,16 @@ export default function Footer() {
                       border
                       border-white/10
                       bg-white/[0.03]
-                      px-5
-                      py-4
+                      px-4
+                      py-3
+                      text-sm
                       transition-all
                       duration-300
                       hover:border-primary/40
                       hover:bg-white/[0.05]
+                      sm:px-5
+                      sm:py-4
+                      sm:text-base
                     "
                 >
                   <div
@@ -290,12 +308,12 @@ export default function Footer() {
                         gap-3
                       "
                   >
-                    {Icon && <Icon size={20} />}
+                    {Icon && <Icon size={18} />}
 
                     <span>{label}</span>
                   </div>
 
-                  <ArrowUpRight size={18} />
+                  <ArrowUpRight size={17} />
                 </a>
               ))}
             </div>
@@ -312,12 +330,15 @@ export default function Footer() {
             flex-col
             items-center
             justify-between
-            gap-6
+            gap-5
             border-t
             border-white/10
-            py-8
-            text-sm
+            py-6
+            text-xs
             text-muted
+            sm:gap-6
+            sm:py-8
+            sm:text-sm
             md:flex-row
           "
         >
@@ -338,8 +359,8 @@ export default function Footer() {
               duration={700}
               className="
                 flex
-                h-12
-                w-12
+                h-10
+                w-10
                 cursor-pointer
                 items-center
                 justify-center
@@ -350,9 +371,13 @@ export default function Footer() {
                 transition
                 hover:border-primary/40
                 hover:bg-primary/10
+                sm:h-11
+                sm:w-11
+                lg:h-12
+                lg:w-12
               "
             >
-              <ChevronUp size={18} />
+              <ChevronUp size={17} />
             </ScrollLink>
           </div>
         </div>

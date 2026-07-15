@@ -1,6 +1,8 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import * as LR from 'lucide-react';
+
+import Container from '../../components/ui/Container';
+import SectionTitle from '../../components/ui/SectionTitle';
 
 import { usePortfolio } from '../../context/PortfolioContext';
 
@@ -16,71 +18,51 @@ export default function SolutionsSection() {
   return (
     <section
       id="services"
-      className="relative overflow-hidden bg-[#070B17] py-28"
+      className="section-background relative overflow-hidden py-14 sm:py-16 md:py-20 lg:py-28"
     >
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.03)_1px,transparent_1px)] bg-[size:42px_42px]" />
-      <div className="absolute -left-40 top-20 h-96 w-96 rounded-full bg-blue-600/10 blur-[140px]" />
-      <div className="absolute -right-40 bottom-0 h-[28rem] w-[28rem] rounded-full bg-violet-600/10 blur-[170px]" />
-
-      <div className="relative mx-auto max-w-7xl px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mx-auto max-w-3xl text-center"
-        >
-          <span className="rounded-full border border-blue-500/20 bg-blue-500/10 px-4 py-2 text-xs uppercase tracking-[0.35em] text-blue-300">
-            Solutions I Deliver
-          </span>
-
-          <h2 className="mt-6 text-5xl font-black leading-tight text-white">
-            Transforming ideas into
-            <span className="block bg-gradient-to-r from-blue-400 via-cyan-300 to-violet-400 bg-clip-text text-transparent">
-              scalable digital products.
-            </span>
-          </h2>
-
-          <p className="mt-6 text-lg leading-8 text-slate-400">
-            Every solution is designed with clean architecture, modern
-            engineering, outstanding user experience and long-term
-            maintainability.
-          </p>
-        </motion.div>
+      <Container>
+        <SectionTitle
+          badge="Solutions I Deliver"
+          title="Transforming ideas into"
+          highlight="scalable digital products."
+          description="Every solution is designed with clean architecture, modern engineering, outstanding user experience and long-term maintainability."
+          align="center"
+        />
 
         {featuredService && (
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="group relative mt-16 overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.04] p-7 backdrop-blur-xl"
+            className="group relative overflow-hidden rounded-[24px] border border-white/10 bg-white/[0.04] p-5 backdrop-blur-xl sm:rounded-[28px] sm:p-6 lg:p-7"
           >
-            <div className="inset-0 opacity-0 transition duration-500 group-hover:opacity-100 bg-gradient-to-r from-blue-500/10 via-transparent to-violet-500/10" />
+            <div className="inset-0 opacity-0 transition duration-500 group-hover:opacity-100 bg-gradient-to-r from-primary/10 via-transparent to-secondary/10" />
 
-            <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+            <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between lg:gap-8">
               <div className="max-w-2xl">
-                <div className="mb-4 inline-flex rounded-xl bg-gradient-to-br from-blue-600 to-violet-600 p-3 shadow-lg shadow-blue-600/30">
+                <div className="mb-4 inline-flex rounded-xl bg-gradient-to-br from-primary to-secondary p-2.5 shadow-lg shadow-primary/30 sm:p-3">
                   {(() => {
                     const Icon = LR[featuredService.icon];
 
                     return Icon ? (
-                      <Icon className="text-white" size={22} />
+                      <Icon className="text-white" size={20} />
                     ) : null;
                   })()}
                 </div>
 
-                <h3 className="text-3xl font-bold text-white">
+                <h3 className="text-xl font-bold text-white sm:text-2xl md:text-3xl">
                   {featuredService.title}
                 </h3>
 
-                <p className="mt-4 text-slate-400 leading-7">
+                <p className="mt-3 text-sm leading-6 text-muted sm:mt-4 sm:text-base sm:leading-7">
                   {featuredService.short_description}
                 </p>
 
-                <div className="mt-8 flex flex-wrap gap-3">
+                <div className="mt-5 flex flex-wrap gap-2 sm:mt-8 sm:gap-3">
                   {featuredService.technologies.map((tech) => (
                     <span
                       key={tech}
-                      className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-300"
+                      className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-muted sm:px-4 sm:py-2 sm:text-sm"
                     >
                       {tech}
                     </span>
@@ -90,7 +72,7 @@ export default function SolutionsSection() {
 
               <a
                 href={featuredService.button_url}
-                className="rounded-2xl bg-gradient-to-r from-blue-600 to-violet-600 px-7 py-4 font-semibold text-white transition hover:scale-105"
+                className="inline-flex shrink-0 items-center justify-center rounded-2xl bg-gradient-to-r from-primary to-secondary px-5 py-3 text-sm font-semibold text-white transition hover:scale-105 sm:px-7 sm:py-4 sm:text-base"
               >
                 {featuredService.button_text}
 
@@ -100,7 +82,7 @@ export default function SolutionsSection() {
           </motion.div>
         )}
 
-        <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        <div className="mt-6 grid gap-4 sm:mt-8 sm:gap-5 md:grid-cols-2 lg:grid-cols-3">
           {serviceCards.map((service, index) => {
             const Icon = LR[service.icon];
             return (
@@ -110,22 +92,22 @@ export default function SolutionsSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05 }}
                 viewport={{ once: true }}
-                className="group rounded-2xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur-xl transition-all duration-300 hover:-translate-y-2 hover:border-blue-500/40 hover:bg-white/[0.06]"
+                className="group rounded-2xl border border-white/10 bg-white/[0.04] p-4 backdrop-blur-xl transition-all duration-300 hover:-translate-y-2 hover:border-primary/40 hover:bg-white/[0.06] sm:p-5"
               >
-                <div className="inline-flex rounded-xl bg-gradient-to-br from-blue-600 to-violet-600 p-2.5 shadow-lg shadow-blue-600/20">
-                  <Icon className="text-white" size={20} />
+                <div className="inline-flex rounded-xl bg-gradient-to-br from-primary to-secondary p-2 shadow-lg shadow-primary/20 sm:p-2.5">
+                  <Icon className="text-white" size={18} />
                 </div>
-                <h4 className="mt-4 text-lg font-semibold text-white">
+                <h4 className="mt-3 text-base font-semibold text-white sm:mt-4 sm:text-lg">
                   {service.title}
                 </h4>
-                <p className="mt-2 text-sm leading-6 text-slate-400">
+                <p className="mt-2 text-sm leading-6 text-muted">
                   {service.short_description}
                 </p>
-                <div className="mt-4 flex flex-wrap gap-2">
+                <div className="mt-3 flex flex-wrap gap-2 sm:mt-4">
                   {service.technologies.map((t) => (
                     <span
                       key={t}
-                      className="rounded-full border border-white/10 px-2.5 py-1 text-xs text-slate-300"
+                      className="rounded-full border border-white/10 px-2.5 py-1 text-xs text-muted"
                     >
                       {t}
                     </span>
@@ -135,7 +117,7 @@ export default function SolutionsSection() {
             );
           })}
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

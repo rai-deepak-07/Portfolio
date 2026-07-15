@@ -8,11 +8,7 @@ import ProjectStatus from "./ProjectStatus";
 import ProjectTechStack from "./ProjectTechStack";
 import ScanImage from "./ScanImage";
 
-const ProjectCard = ({
-  project,
-  index,
-  totalCount,
-}) => {
+const ProjectCard = ({ project, index, totalCount, onClick }) => {
   if (!project) return null;
 
   return (
@@ -24,69 +20,70 @@ const ProjectCard = ({
         duration: 0.5,
         delay: (index - 2) * 0.1,
       }}
-      className="group relative flex flex-col overflow-hidden border border-white/10 bg-white/[0.02] transition-colors duration-500 hover:border-primary/40"
+      onClick={() => {
+        console.log("Clicked:", project.slug);
+        onClick?.(project.slug)}
+       }
+      role={onClick ? "button" : undefined}
+      tabIndex={onClick ? 0 : undefined}
+      onKeyDown={(e) => {
+        if (onClick && (e.key === "Enter" || e.key === " ")) {
+          e.preventDefault();
+          onClick(project.slug);
+        }
+      }}
+      className={`group relative flex flex-col h-full overflow-hidden border border-white/10 bg-white/[0.02] transition-colors duration-500 hover:border-primary/40 ${
+        onClick ? "cursor-pointer" : ""
+      }`}
     >
-      {/* top accent line */}
+      {/* Top accent line from original theme */}
       <span className="absolute inset-x-0 top-0 z-10 h-[2px] bg-white/10 transition-colors duration-500 group-hover:bg-primary" />
 
-      {/* Image */}
-
-      <div className="relative h-52">
+      {/* Image Container with explicit row height */}
+      <div className="relative h-40 w-full shrink-0 overflow-hidden sm:h-44 md:h-52">
         <ScanImage
           src={project.thumbnail}
           alt={project.title}
-          sweepDistance={208}
         />
       </div>
 
-      {/* Content */}
+      {/* Content Distribution Block */}
+      <div className="flex flex-col flex-1 p-4 justify-between sm:p-5 md:p-6">
+        
+        <div className="flex-1 flex flex-col">
+          <div className="flex items-center justify-between">
+            <IndexTag index={index} totalCount={totalCount} />
+            <ProjectStatus status={project.status_display} />
+          </div>
 
-      <div className="flex flex-1 flex-col p-6">
+          <p className="mt-4 font-mono text-[11px] uppercase tracking-[0.22em] text-primary sm:mt-5">
+            {project.category?.name}
+          </p>
 
-        <div className="flex items-center justify-between">
+          <h3 className="mt-2 text-lg font-bold text-white sm:text-xl">
+            {project.title}
+          </h3>
 
-          <IndexTag
-            index={index}
-            totalCount={totalCount}
-          />
+          <p className="mt-2.5 flex-1 text-sm leading-6 text-muted line-clamp-3 sm:mt-3">
+            {project.short_description}
+          </p>
 
-          <ProjectStatus
-            status={project.status_display}
-          />
-
+          <div className="mt-4 border-t border-white/10 pt-3.5 sm:mt-5 sm:pt-4">
+            <ProjectTechStack technologies={project.technologies} />
+          </div>
         </div>
 
-        <p className="mt-5 font-mono text-[11px] uppercase tracking-[0.22em] text-primary">
-          {project.category?.name}
-        </p>
-
-        <h3 className="mt-2 text-xl font-bold">
-          {project.title}
-        </h3>
-
-        <p className="mt-3 flex-1 text-sm leading-6 text-muted">
-          {project.short_description}
-        </p>
-
-        <div className="mt-5 border-t border-white/10 pt-4">
-
-          <ProjectTechStack
-            technologies={project.technologies}
-          />
-
-        </div>
-
-        <div className="mt-5 flex items-center justify-between">
-
+        {/* Action Tray */}
+        <div className="mt-4 flex items-center justify-between pt-3 sm:mt-5">
           {project.live_url ? (
             <a
               href={project.live_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-sm font-semibold text-white/80 transition-colors hover:text-primary"
+              onClick={(e) => e.stopPropagation()}
+              className="flex items-center gap-1.5 text-sm font-semibold text-white/80 transition-colors hover:text-primary cursor-pointer"
             >
               Preview
-
               <ExternalLink size={14} />
             </a>
           ) : (
@@ -99,12 +96,12 @@ const ProjectCard = ({
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`${project.title} source code`}
-              className="text-muted transition-colors hover:text-primary"
+              onClick={(e) => e.stopPropagation()}
+              className="text-muted transition-colors hover:text-primary cursor-pointer"
             >
               <FaGithub size={18} />
             </a>
           )}
-
         </div>
 
       </div>

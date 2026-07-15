@@ -12,7 +12,7 @@ export default function TrustMetricsSection() {
   const statistics = state.statistics || [];
 
   return (
-    <section id="statistics" className="relative py-24 lg:py-32">
+    <section id="statistics" className="relative py-14 sm:py-16 md:py-20 lg:py-28">
       
       <Container>
 
@@ -26,8 +26,10 @@ export default function TrustMetricsSection() {
 
         <div
           className="
-            mt-16 grid gap-6
+            mt-10 grid gap-4
+            sm:mt-12 sm:gap-6
             md:grid-cols-2
+            lg:mt-16
             xl:grid-cols-4
           "
         >
@@ -67,8 +69,10 @@ export default function TrustMetricsSection() {
                   border
                   border-white/10
                   bg-white/5
-                  px-6
-                  py-7
+                  px-5
+                  py-5
+                  sm:px-6
+                  sm:py-7
                   md:p-7
                   backdrop-blur-2xl
                   transition-all
@@ -101,29 +105,33 @@ export default function TrustMetricsSection() {
                 <div
                   className="
                     relative
-                    mb-5
+                    mb-4
                     flex
-                    h-12
-                    w-12
+                    h-11
+                    w-11
                     items-center
                     justify-center
                     rounded-2xl
                     bg-primary/10
                     text-primary
+                    sm:mb-5
+                    sm:h-12
+                    sm:w-12
                     md:mb-7
                   "
                 >
-                  <Icon size={25} />
+                  <Icon size={22} />
                 </div>
 
                 {/* Value */}
 
                 <h3
                   className="
-                    text-4xl
+                    text-3xl
                     font-black
                     tracking-tight
                     text-white
+                    sm:text-4xl
                   "
                 >
                   {item.value}
@@ -133,9 +141,11 @@ export default function TrustMetricsSection() {
 
                 <h4
                   className="
-                    mt-5
-                    text-lg
+                    mt-4
+                    text-base
                     font-semibold
+                    sm:mt-5
+                    sm:text-lg
                     md:text-xl
                   "
                 >
@@ -146,9 +156,11 @@ export default function TrustMetricsSection() {
 
                 <p
                   className="
-                    mt-4
+                    mt-3
+                    text-sm
                     text-muted
                     leading-6
+                    sm:mt-4
                     md:text-base
                     md:leading-7
                   "

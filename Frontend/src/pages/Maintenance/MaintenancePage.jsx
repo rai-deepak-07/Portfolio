@@ -1,5 +1,4 @@
-
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
   CalendarDays,
@@ -31,11 +30,7 @@ const MaintenancePage = () => {
 
       if (diff <= 0) {
         setRemaining({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-
-        // Automatically refresh the application once the countdown ends.
-        // This allows BootstrapProvider to fetch the latest maintenance state.
         window.location.reload();
-
         return;
       }
 
@@ -72,103 +67,124 @@ const MaintenancePage = () => {
   };
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-slate-950 text-white">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,#06b6d433,transparent_35%),radial-gradient(circle_at_bottom_right,#7c3aed33,transparent_35%)]" />
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.04)_1px,transparent_1px)] bg-[size:42px_42px]" />
+    <div className="relative min-h-screen overflow-hidden bg-zinc-950 text-zinc-50 antialiased selection:bg-cyan-500/30">
+      
+      {/* BACKGROUND SURFACES - Safely isolated using pointer-events-none */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,#06b6d433,transparent_35%),radial-gradient(circle_at_bottom_right,#7c3aed33,transparent_35%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.04)_1px,transparent_1px)] bg-[size:42px_42px]" />
+      </div>
 
-      <div className="relative z-10 flex min-h-screen items-center justify-center px-4 py-8 sm:px-6">
+      {/* CORE INTERACTIVE WRAPPER - Highly optimized responsive grid for Tablet/Laptops */}
+      <div className="relative z-10 flex min-h-screen items-center justify-center px-4 py-12 sm:px-6 md:py-16 lg:px-8">
         <motion.div
-          initial={{opacity:0,y:25}}
-          animate={{opacity:1,y:0}}
-          className={`w-full ${hasImage ? "max-w-7xl" : "max-w-3xl"} rounded-3xl border border-white/10 bg-white/5 backdrop-blur-2xl overflow-hidden`}
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+          className={`w-full ${hasImage ? "max-w-5xl md:max-w-4xl lg:max-w-5xl" : "max-w-2xl"} rounded-2xl border border-zinc-900 bg-zinc-900/20 backdrop-blur-md overflow-hidden shadow-xl`}
         >
-          <div className={hasImage ? "grid lg:grid-cols-[0.42fr_0.58fr]" : "block"}>
+          <div className={hasImage ? "grid grid-cols-1 md:grid-cols-12 lg:grid-cols-12" : "block"}>
+            
+            {/* Conditional Graphic Asset - Fixed sizing distributions for tablets/laptops */}
             {hasImage && (
-              <div className="flex items-center justify-center border-b border-white/10 p-8 lg:border-b-0 lg:border-r">
+              <div className="flex items-center justify-center bg-zinc-900/10 border-b border-zinc-900 p-6 sm:p-8 md:col-span-5 lg:col-span-5 md:border-b-0 md:border-r">
                 <img
                   src={maintenance.maintenance_image}
                   alt={maintenance.title}
-                  className="max-h-[420px] w-full object-contain"
+                  className="max-h-[260px] sm:max-h-[320px] md:max-h-[380px] w-full object-contain filter drop-shadow-[0_0_30px_rgba(6,182,212,0.1)]"
                 />
               </div>
             )}
 
-            <div className={`p-6 sm:p-8 lg:p-10 ${!hasImage ? "text-center" : ""}`}>
-              <div className={`inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-3 py-2 text-xs sm:text-sm text-cyan-200 ${!hasImage ? "mx-auto" : ""}`}>
-                {!hasImage && <Wrench className="h-4 w-4" />}
-                <span className="h-2 w-2 rounded-full bg-cyan-400 animate-pulse"/>
-                Scheduled Maintenance
-              </div>
-
-              <h1 className="mt-5 text-3xl font-black leading-tight sm:text-4xl lg:text-5xl xl:text-6xl">
-                {maintenance.title}
-              </h1>
-
-              <p className={`mt-5 text-sm leading-7 text-slate-300 sm:text-base lg:text-lg ${!hasImage ? "mx-auto max-w-2xl" : ""}`}>
-                {maintenance.message}
-              </p>
-
-              <div className="mt-8 grid gap-4 md:grid-cols-2">
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-4 sm:p-5">
-                  <CalendarDays className="mb-3 h-5 w-5 text-cyan-300"/>
-                  <p className="text-xs uppercase tracking-wide text-slate-400">Starts</p>
-                  <h3 className="mt-2 text-sm font-semibold sm:text-base">{formatDate(maintenance.start_date)}</h3>
+            {/* Notification Parameters Console */}
+            <div className={`p-6 sm:p-8 lg:p-10 flex flex-col justify-between h-full ${hasImage ? "md:col-span-7 lg:col-span-7" : "text-center"}`}>
+              <div>
+                {/* Micro Status Chip */}
+                <div className={`inline-flex items-center gap-2 rounded-lg border border-cyan-500/10 bg-cyan-500/5 px-3 py-1 text-xs font-medium text-cyan-400 tracking-wide w-fit ${!hasImage ? "mx-auto flex" : ""}`}>
+                  <Wrench size={12} className="text-cyan-400" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 animate-pulse" />
+                  Scheduled Upgrades
                 </div>
 
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-4 sm:p-5">
-                  <Clock3 className="mb-3 h-5 w-5 text-cyan-300"/>
-                  <p className="text-xs uppercase tracking-wide text-slate-400">Expected Completion</p>
-                  <h3 className="mt-2 text-sm font-semibold sm:text-base">{formatDate(maintenance.end_date)}</h3>
-                </div>
-              </div>
+                <h1 className={`mt-4 text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-zinc-100 leading-tight ${!hasImage ? "text-center" : ""}`}>
+                  {maintenance.title}
+                </h1>
 
-              <div className="mt-6 rounded-2xl border border-emerald-500/20 bg-emerald-500/10 p-4 sm:p-5">
-                <div className={`flex items-center gap-3 ${!hasImage ? "justify-center" : ""}`}>
-                  <ShieldCheck className="h-5 w-5 text-emerald-400"/>
-                  <div>
-                    <p className="text-xs uppercase tracking-wide text-emerald-300">Status</p>
-                    <h4 className="font-semibold">Maintenance in Progress</h4>
+                <p className={`mt-3 text-sm leading-relaxed text-zinc-400 ${!hasImage ? "text-center mx-auto max-w-lg" : ""}`}>
+                  {maintenance.message}
+                </p>
+
+                {/* Horizon Metrics Schedule Split-blocks */}
+                <div className="mt-8 grid gap-3 sm:grid-cols-2">
+                  <div className="rounded-xl border border-zinc-900 bg-zinc-900/30 p-4">
+                    <div className="flex items-center gap-2 text-zinc-500 mb-1.5">
+                      <CalendarDays size={14} />
+                      <p className="text-[10px] uppercase font-semibold tracking-wider">Window Launch</p>
+                    </div>
+                    <h3 className="text-xs sm:text-sm font-medium text-zinc-200">{formatDate(maintenance.start_date)}</h3>
+                  </div>
+
+                  <div className="rounded-xl border border-zinc-900 bg-zinc-900/30 p-4">
+                    <div className="flex items-center gap-2 text-zinc-500 mb-1.5">
+                      <Clock3 size={14} />
+                      <p className="text-[10px] uppercase font-semibold tracking-wider">Expected Completion</p>
+                    </div>
+                    <h3 className="text-xs sm:text-sm font-medium text-zinc-200">{formatDate(maintenance.end_date)}</h3>
                   </div>
                 </div>
-              </div>
 
-              {maintenance.show_countdown && (
-                <div className="mt-8">
-                  <p className="mb-4 text-center text-xs uppercase tracking-[3px] text-slate-400">
-                    Time Remaining
-                  </p>
+                {/* Micro Status Inline Banner */}
+                <div className="mt-3 rounded-xl border border-emerald-500/10 bg-emerald-500/5 p-3">
+                  <div className={`flex items-center gap-2 text-emerald-400 ${!hasImage ? "justify-center" : ""}`}>
+                    <ShieldCheck size={14} className="shrink-0" />
+                    <p className="text-xs font-medium tracking-wide">Systems safe • Live updates active</p>
+                  </div>
+                </div>
 
-                  <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-                    {[
-                      ["Days", remaining.days],
-                      ["Hours", remaining.hours],
-                      ["Minutes", remaining.minutes],
-                      ["Seconds", remaining.seconds],
-                    ].map(([label,value])=>(
-                      <div key={label} className="rounded-2xl border border-white/10 bg-white/5 p-4 text-center">
-                        <div className="text-2xl font-bold text-cyan-300 sm:text-3xl">
-                          {String(value).padStart(2,"0")}
+                {/* Segmented Countdowns Matrix */}
+                {maintenance.show_countdown && (
+                  <div className="mt-8">
+                    <p className={`mb-3 text-[10px] uppercase font-bold tracking-[2px] text-zinc-500 ${!hasImage ? "text-center" : ""}`}>
+                      Time remaining in window
+                    </p>
+
+                    <div className={`grid grid-cols-4 gap-2 ${!hasImage ? "max-w-md mx-auto" : "max-w-sm"}`}>
+                      {[
+                        ["Days", remaining.days],
+                        ["Hrs", remaining.hours],
+                        ["Min", remaining.minutes],
+                        ["Sec", remaining.seconds],
+                      ].map(([label, value]) => (
+                        <div key={label} className="rounded-xl border border-zinc-900 bg-zinc-900/10 py-2.5 text-center">
+                          <div className="text-base sm:text-lg font-bold font-mono text-cyan-400">
+                            {String(value).padStart(2, "0")}
+                          </div>
+                          <div className="text-[9px] font-medium text-zinc-500 uppercase tracking-wide mt-0.5">{label}</div>
                         </div>
-                        <div className="mt-2 text-xs text-slate-400">{label}</div>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
+              </div>
 
-              <button
-                onClick={handleRefresh}
-                disabled={refreshing}
-                className={`mt-8 inline-flex items-center justify-center gap-3 rounded-xl bg-cyan-500 px-6 py-3 font-semibold text-slate-950 transition hover:bg-cyan-400 disabled:opacity-60 ${!hasImage ? "w-full sm:w-auto" : ""}`}
-              >
-                <RotateCw className={`h-5 w-5 ${refreshing ? "animate-spin" : ""}`}/>
-                {refreshing ? "Refreshing..." : "Refresh Status"}
-              </button>
+              {/* Console Footers & Actions */}
+              <div className="mt-8 pt-6 border-t border-zinc-900">
+                <button
+                  onClick={handleRefresh}
+                  disabled={refreshing}
+                  className={`inline-flex items-center justify-center gap-2 rounded-xl bg-zinc-100 px-5 py-2.5 text-xs font-semibold text-zinc-950 transition-all hover:bg-zinc-200 active:scale-95 disabled:opacity-60 shadow-sm cursor-pointer ${!hasImage ? "w-full sm:w-auto mx-auto flex" : "w-full sm:w-auto"}`}
+                >
+                  <RotateCw size={13} className={`transition-transform ${refreshing ? "animate-spin" : ""}`} />
+                  {refreshing ? "Re-syncing..." : "Check System Status"}
+                </button>
 
-              <p className="mt-8 border-t border-white/10 pt-6 text-sm leading-7 text-slate-400">
-                Thank you for your patience. The application will automatically become available once maintenance is completed.
-              </p>
+                <p className={`mt-4 text-[11px] leading-normal text-zinc-500 ${!hasImage ? "text-center mx-auto max-w-md" : ""}`}>
+                  Thank you for your patience. The workspace will automatically handshake and refresh the second live services clear current deployment lines.
+                </p>
+              </div>
+
             </div>
+
           </div>
         </motion.div>
       </div>
