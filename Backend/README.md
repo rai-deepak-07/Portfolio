@@ -1,24 +1,33 @@
 # 🚀 Portfolio Backend API
 
-A scalable and production-ready backend built with **Django** and **Django REST Framework** to power my personal portfolio website. This backend is designed with a modular architecture, making it easy to extend into a freelance platform, SaaS products, and future business applications.
+A production-ready backend built with **Django** and **Django REST Framework** that powers my personal portfolio website. The project follows a modular architecture with scalable REST APIs, PostgreSQL, Cloudinary media storage, and a modern Django admin dashboard.
 
 ---
 
-# 📌 Features
+## 🌐 Live Demo
 
-- Professional Django Project Structure
-- Modular App Architecture
-- Django REST Framework API
-- Django Unfold Admin Dashboard
-- RESTful API Design
+- **Frontend:** https://your-frontend.vercel.app
+- **Backend API:** https://portfolio-backend-qnz4.onrender.com
+- **Admin Panel:** https://portfolio-backend-qnz4.onrender.com/admin/
+
+---
+
+# ✨ Features
+
+- RESTful API built with Django REST Framework
+- Modular application architecture
+- Professional Django Unfold admin dashboard
+- PostgreSQL database
+- Cloudinary media storage
 - Slug-based URLs
-- Image & File Upload Support
-- Read-Only Public APIs
-- Contact Form API
-- SQLite (Development)
-- PostgreSQL Ready
-- Scalable Folder Structure
-- Production Ready Architecture
+- Ordered content management
+- Read-only public APIs
+- Environment variable configuration
+- Production-ready deployment
+- CORS configuration
+- WhiteNoise static file serving
+- Responsive admin interface
+- Clean and scalable codebase
 
 ---
 
@@ -26,33 +35,36 @@ A scalable and production-ready backend built with **Django** and **Django REST 
 
 ## Backend
 
-- Python 3.14
+- Python 3
 - Django 6
 - Django REST Framework
 
 ## Database
 
-- SQLite (Development)
-- PostgreSQL (Production Ready)
+- PostgreSQL (Neon)
 
-## Admin
+## Media Storage
+
+- Cloudinary
+
+## Static Files
+
+- WhiteNoise
+
+## Admin Panel
 
 - Django Unfold
 
-## Media
+## Deployment
 
-- Pillow
+- Render
+- Vercel (Frontend)
 
-## API
-
-- REST API
-- JSON
-
-## Development
+## Development Tools
 
 - Git
 - Virtual Environment
-- Modular Architecture
+- dotenv
 
 ---
 
@@ -62,41 +74,24 @@ A scalable and production-ready backend built with **Django** and **Django REST 
 Backend/
 │
 ├── apps/
-│   │
 │   ├── common/
-│   │
-│   ├── accounts/
-│   │
 │   └── portfolio/
-│       │
 │       ├── admin/
-│       │
 │       ├── api/
 │       │   ├── serializers/
 │       │   ├── views/
 │       │   └── urls.py
-│       │
 │       ├── models/
-│       │
 │       ├── migrations/
-│       │
-│       ├── services/
-│       │
 │       ├── urls.py
 │       └── apps.py
 │
 ├── config/
 │
-├── media/
-│
 ├── static/
 │
-├── templates/
-│
 ├── requirements.txt
-│
 ├── manage.py
-│
 └── README.md
 ```
 
@@ -107,11 +102,11 @@ Backend/
 ## Clone Repository
 
 ```bash
-git clone https://github.com/<username>/portfolio-backend.git
+git clone https://github.com/rai-deepak-07/Portfolio.git
 ```
 
 ```bash
-cd Backend
+cd Portfolio/Backend
 ```
 
 ---
@@ -122,11 +117,6 @@ Windows
 
 ```bash
 python -m venv venv
-```
-
-Activate
-
-```bash
 venv\Scripts\activate
 ```
 
@@ -134,9 +124,6 @@ Linux / macOS
 
 ```bash
 python3 -m venv venv
-```
-
-```bash
 source venv/bin/activate
 ```
 
@@ -146,6 +133,28 @@ source venv/bin/activate
 
 ```bash
 pip install -r requirements.txt
+```
+
+---
+
+## Configure Environment Variables
+
+Create a `.env` file.
+
+```env
+SECRET_KEY=your-secret-key
+
+DEBUG=True
+
+DATABASE_URL=your-neon-postgresql-url
+
+ALLOWED_HOSTS=127.0.0.1,localhost
+
+CORS_ALLOWED_ORIGINS=http://localhost:5173
+
+CLOUDINARY_CLOUD_NAME=your-cloud-name
+CLOUDINARY_API_KEY=your-api-key
+CLOUDINARY_API_SECRET=your-api-secret
 ```
 
 ---
@@ -166,7 +175,7 @@ python manage.py createsuperuser
 
 ---
 
-## Run Server
+## Run Development Server
 
 ```bash
 python manage.py runserver
@@ -186,20 +195,20 @@ http://127.0.0.1:8000/admin/
 
 ---
 
-# 📡 API Endpoints
+# 📡 REST API
 
-## About
+## Portfolio Configuration
 
 ```
-GET /api/v1/about/
+GET /api/v1/configuration/
 ```
 
 ---
 
-## Categories
+## Technology Types
 
 ```
-GET /api/v1/categories/
+GET /api/v1/tech-types/
 ```
 
 ---
@@ -227,31 +236,7 @@ GET /api/v1/projects/
 ```
 
 ```
-GET /api/v1/projects/<slug>/
-```
-
----
-
-## Resume
-
-```
-GET /api/v1/resume/
-```
-
----
-
-## Skills
-
-```
-GET /api/v1/skills/
-```
-
----
-
-## Certificates
-
-```
-GET /api/v1/certificates/
+GET /api/v1/projects/{slug}/
 ```
 
 ---
@@ -264,6 +249,14 @@ GET /api/v1/statistics/
 
 ---
 
+## FAQs
+
+```
+GET /api/v1/faqs/
+```
+
+---
+
 ## Maintenance
 
 ```
@@ -272,104 +265,93 @@ GET /api/v1/maintenance/
 
 ---
 
-## Contact
-
-```
-POST /api/v1/contact/
-```
-
----
-
 # 🔐 Authentication
 
-Currently the backend exposes **public read-only APIs** for portfolio content.
+The current portfolio APIs are public and optimized for content delivery.
 
-The Django Admin panel is protected using Django's authentication system.
+The Django admin dashboard is protected using Django's authentication system.
 
-Future releases will include:
+Future releases may include:
 
 - JWT Authentication
 - Refresh Tokens
-- User Roles
-- Permission Management
+- Role-based Access Control
+- API Rate Limiting
 
 ---
 
-# 🖼 Media
+# 🖼 Media Storage
 
-Uploaded media is stored in:
+All uploaded files are stored securely on **Cloudinary**.
 
-```text
-media/
-```
+Supported uploads include:
 
-Supported:
-
-- Profile Images
-- Project Images
-- Certificates
-- Resume Files
+- Project thumbnails
+- Project gallery images
+- Profile image
+- Resume
+- Portfolio assets
 
 ---
 
-# 🎯 Current Architecture
+# 🚀 Deployment Architecture
 
 ```text
-React Frontend
-        │
-        ▼
-REST API (Django REST Framework)
-        │
-        ▼
-Business Logic
-        │
-        ▼
-SQLite Database
-        │
-        ▼
-Django Unfold Admin
+                 GitHub Repository
+                        │
+        ┌───────────────┴───────────────┐
+        │                               │
+        ▼                               ▼
+   Vercel Frontend                Render Backend
+                                          │
+                       ┌──────────────────┴──────────────────┐
+                       │                                     │
+                       ▼                                     ▼
+                Neon PostgreSQL                    Cloudinary Storage
 ```
 
 ---
 
 # 📅 Roadmap
 
-### ✅ Completed
+## ✅ Completed
 
-- Project Structure
-- Modular Models
-- Modular Serializers
-- Modular Views
-- Modular URLs
-- Django Unfold
-- Public REST APIs
+- Modular Django Architecture
+- REST API
+- PostgreSQL Integration
+- Cloudinary Media Storage
+- Django Unfold Admin
+- Render Deployment
+- Vercel Frontend Deployment
+- Production Environment Configuration
 
-### 🚧 In Progress
+## 🚧 In Progress
 
-- Frontend Development
+- Visitor Analytics
+- SEO Enhancements
+- Performance Optimization
 
-### 📌 Planned
+## 📌 Planned
 
 - JWT Authentication
-- Visitor Analytics
-- Search & Filtering
-- API Documentation
 - Docker Support
-- CI/CD
-- PostgreSQL Production Deployment
-- Automated Testing
+- API Documentation
+- CI/CD Pipeline
+- Unit Testing
+- Redis Caching
+- Background Tasks (Celery)
 
 ---
 
-# 📖 Development Principles
+# 🧹 Development Principles
 
-- Clean Code
-- DRY (Don't Repeat Yourself)
+- Clean Architecture
 - SOLID Principles
+- DRY (Don't Repeat Yourself)
 - RESTful API Design
-- Modular Architecture
-- Scalable Folder Structure
-- Separation of Concerns
+- Modular Development
+- Environment-based Configuration
+- Production-first Deployment
 
 ---
 
@@ -377,10 +359,14 @@ Django Unfold Admin
 
 **Deepak Raikwar**
 
-MCA Graduate | Python Backend Developer | Django & DRF Developer
+Python Backend Developer • Django & Django REST Framework Developer
 
-GitHub: https://github.com/<your-username>
+- GitHub: https://github.com/rai-deepak-07
+- LinkedIn: https://linkedin.com/in/deepakraikwar
+- Portfolio: https://your-portfolio.vercel.app
 
-LinkedIn: https://linkedin.com/in/<your-profile>
+---
 
-Portfolio: Coming Soon 🚀
+## ⭐ Support
+
+If you found this project helpful, consider giving it a ⭐ on GitHub.
