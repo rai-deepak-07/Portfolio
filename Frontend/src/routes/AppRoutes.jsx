@@ -8,7 +8,7 @@ import NotFoundPage from "../pages/NotFound/NotFoundPage";
 import MaintenancePage from "../pages/Maintenance/MaintenancePage";
 import ServerDownPage from "../pages/ServerDown/ServerDownPage";
 import ProjectsPage from "../pages/Project/ProjectsPage";
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from "@vercel/analytics/react"
 
 
 export default function AppRoutes() {
