@@ -5,29 +5,18 @@ from .service import ServiceViewSet
 from .technology import TechnologyViewSet
 from .faq import FAQViewSet
 from .maintenance import MaintenanceViewSet
-
-
-
-from .about import AboutViewSet
 from .project import ProjectViewSet
-from .resume import ResumeViewSet
-from .skill import SkillViewSet
-from .certificate import CertificateViewSet
-from .contact import ContactCreateAPIView
+
+
+
 
 __all__ = [
-    "PortfolioConfigurationAPIView",
+    "PortfolioConfigurationViewSet",
     "StatisticViewSet",
     "TechnologyTypeViewSet",
     "ServiceViewSet",
     "TechnologyViewSet",
-    "FaqViewSet",
+    "FAQViewSet",
     "MaintenanceViewSet",
-    
-    "AboutViewSet",
     "ProjectViewSet",
-    "ResumeViewSet",
-    "SkillViewSet",
-    "ContactCreateAPIView",
-    "CertificateViewSet",
-]
+    ]

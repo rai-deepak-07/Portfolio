@@ -7,30 +7,15 @@ from .project import Project, ProjectImage, ProjectCategory
 from .faq import FAQ
 from .maintenance import Maintenance
 
-
-from .about import About
-from .resume import ResumeSection, ResumeEntry
-from .skill import SkillCategory, Skill
-from .contact import Contact
-from .certificate import Certificate
-
 __all__ = [
+    "PortfolioConfiguration",
     "Statistic",
     "TechnologyType",
     "Service",
     "Technology",
-    "Faq",
+    "FAQ",
     "Maintenance",
     "Project",
     "ProjectImage",
     "ProjectCategory",
-    
-    
-    "About",
-    "ResumeSection",
-    "ResumeEntry",
-    "SkillCategory",
-    "Skill",
-    "Contact",
-    "Certificate",
 ]

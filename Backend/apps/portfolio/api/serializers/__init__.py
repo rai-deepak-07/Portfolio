@@ -8,11 +8,6 @@ from .project import ProjectListSerializer, ProjectImageSerializer, ProjectDetai
 from .maintenance import MaintenanceSerializer
 
 
-from .about import AboutSerializer
-from .resume import ResumeSectionSerializer, ResumeEntrySerializer
-from .contact import ContactSerializer
-from .skill import SkillCategorySerializer, SkillSerializer
-from .certificate import CertificateSerializer
 
 
 __all__ = [
@@ -26,12 +21,4 @@ __all__ = [
     "ProjectListSerializer",
     "ProjectImageSerializer",
     "ProjectDetailSerializer",
-
-    "AboutSerializer",
-    "ResumeSectionSerializer",
-    "ResumeEntrySerializer",
-    "SkillSerializer",
-    "SkillCategorySerializer",
-    "ContactSerializer",
-    "CertificateSerializer",
 ]
