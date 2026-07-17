@@ -1,0 +1,16 @@
+Developer: Deepak Raikwar
+Website: https://www.raideepak.online
+Role: Python Full Stack Developer
+
+Tech Stack:
+- Python
+- Django
+- Django REST Framework
+- React
+- JavaScript
+- PostgreSQL
+- Git
+- Docker
+
+GitHub:
+https://github.com/rai-deepak-07

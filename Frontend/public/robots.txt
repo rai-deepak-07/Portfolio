@@ -1,0 +1,6 @@
+User-agent: *
+
+Allow: /
+
+Sitemap: https://www.raideepak.online/sitemap.xml
+Host: https://www.raideepak.online
