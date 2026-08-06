@@ -12,5 +12,7 @@ Tech Stack:
 - Git
 - Docker
 
-GitHub:
-https://github.com/rai-deepak-07
+GitHub: https://github.com/rai-deepak-07
+LinkedIn: https://linkedin.com/in/raideepak07
+Instagram: https://instagram.com/rai_deepak_07
+Twitter: https://x.com/rai_deepak_07
